@@ -549,8 +549,6 @@ namespace SqlCeComparer
             {
 
             }
-            util.CompareSchemas();
-            
         }
 
         private bool CheckFileExists(string filePath)
