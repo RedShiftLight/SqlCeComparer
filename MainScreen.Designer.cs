@@ -1,6 +1,6 @@
 ﻿namespace SqlCeComparer
 {
-    partial class DatabaseTool
+    partial class MainScreen
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DatabaseTool));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainScreen));
             this.openScheduleSdf = new System.Windows.Forms.OpenFileDialog();
             this.openConfigSdf = new System.Windows.Forms.OpenFileDialog();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -69,10 +69,10 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.OldTxtBox = new System.Windows.Forms.Label();
             this.InOldTxtBox = new System.Windows.Forms.TextBox();
-            this.NewTxtBox = new System.Windows.Forms.Label();
+            this.OldTxtBox = new System.Windows.Forms.Label();
             this.InNewTxtBox = new System.Windows.Forms.TextBox();
+            this.NewTxtBox = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.OpenWinMerge = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -92,6 +92,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.Tab = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lvTables = new System.Windows.Forms.ListView();
+            this.chTableName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chDbA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chDbB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chEqual = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnCompare = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.txtDatabaseB = new System.Windows.Forms.TextBox();
             this.txtDatabaseA = new System.Windows.Forms.TextBox();
@@ -99,7 +105,6 @@
             this.label17 = new System.Windows.Forms.Label();
             this.btnBrowseA = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.btnCompare = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dwelltimehelp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.remotevalhelp)).BeginInit();
@@ -187,8 +192,8 @@
             // 
             // updateReturnTxt
             // 
-            this.updateReturnTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.updateReturnTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.updateReturnTxt.Location = new System.Drawing.Point(16, 361);
             this.updateReturnTxt.Multiline = true;
@@ -473,7 +478,7 @@
             // 
             // EditConfigTxt
             // 
-            this.EditConfigTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.EditConfigTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.EditConfigTxt.Location = new System.Drawing.Point(208, 8);
             this.EditConfigTxt.Name = "EditConfigTxt";
@@ -529,8 +534,8 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BackColor = System.Drawing.SystemColors.Window;
             this.splitContainer1.Location = new System.Drawing.Point(28, 206);
@@ -549,15 +554,6 @@
             this.splitContainer1.SplitterDistance = 316;
             this.splitContainer1.TabIndex = 48;
             // 
-            // OldTxtBox
-            // 
-            this.OldTxtBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.OldTxtBox.Location = new System.Drawing.Point(0, 0);
-            this.OldTxtBox.Name = "OldTxtBox";
-            this.OldTxtBox.Size = new System.Drawing.Size(316, 13);
-            this.OldTxtBox.TabIndex = 48;
-            this.OldTxtBox.Text = "Only In Old Configuration";
-            // 
             // InOldTxtBox
             // 
             this.InOldTxtBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -568,14 +564,14 @@
             this.InOldTxtBox.Size = new System.Drawing.Size(316, 207);
             this.InOldTxtBox.TabIndex = 39;
             // 
-            // NewTxtBox
+            // OldTxtBox
             // 
-            this.NewTxtBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.NewTxtBox.Location = new System.Drawing.Point(0, 0);
-            this.NewTxtBox.Name = "NewTxtBox";
-            this.NewTxtBox.Size = new System.Drawing.Size(316, 13);
-            this.NewTxtBox.TabIndex = 49;
-            this.NewTxtBox.Text = "Only In New Configuration";
+            this.OldTxtBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.OldTxtBox.Location = new System.Drawing.Point(0, 0);
+            this.OldTxtBox.Name = "OldTxtBox";
+            this.OldTxtBox.Size = new System.Drawing.Size(316, 13);
+            this.OldTxtBox.TabIndex = 48;
+            this.OldTxtBox.Text = "Only In Old Configuration";
             // 
             // InNewTxtBox
             // 
@@ -587,6 +583,15 @@
             this.InNewTxtBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.InNewTxtBox.Size = new System.Drawing.Size(316, 207);
             this.InNewTxtBox.TabIndex = 40;
+            // 
+            // NewTxtBox
+            // 
+            this.NewTxtBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.NewTxtBox.Location = new System.Drawing.Point(0, 0);
+            this.NewTxtBox.Name = "NewTxtBox";
+            this.NewTxtBox.Size = new System.Drawing.Size(316, 13);
+            this.NewTxtBox.TabIndex = 49;
+            this.NewTxtBox.Text = "Only In New Configuration";
             // 
             // label4
             // 
@@ -699,8 +704,8 @@
             // 
             // splitContainer2
             // 
-            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer2.Location = new System.Drawing.Point(28, 432);
             this.splitContainer2.Name = "splitContainer2";
@@ -758,12 +763,12 @@
             // 
             // Tab
             // 
-            this.Tab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.Tab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Tab.Controls.Add(this.tabPage3);
             this.Tab.Controls.Add(this.tabPage1);
             this.Tab.Controls.Add(this.tabPage2);
-            this.Tab.Controls.Add(this.tabPage3);
             this.Tab.Location = new System.Drawing.Point(0, 0);
             this.Tab.Name = "Tab";
             this.Tab.SelectedIndex = 0;
@@ -772,6 +777,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.lvTables);
             this.tabPage3.Controls.Add(this.btnCompare);
             this.tabPage3.Controls.Add(this.label5);
             this.tabPage3.Controls.Add(this.txtDatabaseB);
@@ -786,6 +792,58 @@
             this.tabPage3.Text = "Jim";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // lvTables
+            // 
+            this.lvTables.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvTables.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chTableName,
+            this.chDbA,
+            this.chDbB,
+            this.chEqual});
+            this.lvTables.FullRowSelect = true;
+            this.lvTables.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvTables.HideSelection = false;
+            this.lvTables.Location = new System.Drawing.Point(21, 102);
+            this.lvTables.MultiSelect = false;
+            this.lvTables.Name = "lvTables";
+            this.lvTables.Size = new System.Drawing.Size(580, 192);
+            this.lvTables.TabIndex = 54;
+            this.lvTables.UseCompatibleStateImageBehavior = false;
+            this.lvTables.View = System.Windows.Forms.View.Details;
+            this.lvTables.SelectedIndexChanged += new System.EventHandler(this.lvTables_SelectedIndexChanged);
+            // 
+            // chTableName
+            // 
+            this.chTableName.Text = "Table Name";
+            this.chTableName.Width = 150;
+            // 
+            // chDbA
+            // 
+            this.chDbA.Text = "Found in Db A";
+            this.chDbA.Width = 90;
+            // 
+            // chDbB
+            // 
+            this.chDbB.Text = "Found in Db B";
+            this.chDbB.Width = 90;
+            // 
+            // chEqual
+            // 
+            this.chEqual.Text = "Are Equal";
+            this.chEqual.Width = 90;
+            // 
+            // btnCompare
+            // 
+            this.btnCompare.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCompare.Location = new System.Drawing.Point(607, 13);
+            this.btnCompare.Name = "btnCompare";
+            this.btnCompare.Size = new System.Drawing.Size(78, 47);
+            this.btnCompare.TabIndex = 53;
+            this.btnCompare.Text = "Compare";
+            this.btnCompare.UseVisualStyleBackColor = true;
+            this.btnCompare.Click += new System.EventHandler(this.btnCompare_Click);
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -797,21 +855,23 @@
             // 
             // txtDatabaseB
             // 
-            this.txtDatabaseB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtDatabaseB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDatabaseB.Location = new System.Drawing.Point(87, 39);
             this.txtDatabaseB.Name = "txtDatabaseB";
             this.txtDatabaseB.Size = new System.Drawing.Size(433, 20);
             this.txtDatabaseB.TabIndex = 50;
+            this.txtDatabaseB.Text = "C:\\Users\\jimkr\\Desktop\\Configuration-VTA-S54-PSA.sdf";
             // 
             // txtDatabaseA
             // 
-            this.txtDatabaseA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtDatabaseA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDatabaseA.Location = new System.Drawing.Point(87, 13);
             this.txtDatabaseA.Name = "txtDatabaseA";
             this.txtDatabaseA.Size = new System.Drawing.Size(433, 20);
             this.txtDatabaseA.TabIndex = 48;
+            this.txtDatabaseA.Text = "C:\\Users\\jimkr\\Desktop\\Configuration-VTA-S54.sdf";
             // 
             // btnBrowseB
             // 
@@ -849,24 +909,13 @@
             this.openFileDialog1.FileName = "Configuration.sdf";
             this.openFileDialog1.Filter = "Configuration Database |Configuration.sdf| All Files |*.*";
             // 
-            // btnCompare
-            // 
-            this.btnCompare.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCompare.Location = new System.Drawing.Point(607, 13);
-            this.btnCompare.Name = "btnCompare";
-            this.btnCompare.Size = new System.Drawing.Size(78, 47);
-            this.btnCompare.TabIndex = 53;
-            this.btnCompare.Text = "Compare";
-            this.btnCompare.UseVisualStyleBackColor = true;
-            this.btnCompare.Click += new System.EventHandler(this.btnCompare_Click);
-            // 
-            // DatabaseTool
+            // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(710, 693);
             this.Controls.Add(this.Tab);
-            this.Name = "DatabaseTool";
+            this.Name = "MainScreen";
             this.Text = "CleverWare Configuration Diff Tool";
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
@@ -972,6 +1021,11 @@
         private System.Windows.Forms.Button btnBrowseA;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button btnCompare;
+        private System.Windows.Forms.ListView lvTables;
+        private System.Windows.Forms.ColumnHeader chTableName;
+        private System.Windows.Forms.ColumnHeader chDbA;
+        private System.Windows.Forms.ColumnHeader chDbB;
+        private System.Windows.Forms.ColumnHeader chEqual;
     }
 }
 

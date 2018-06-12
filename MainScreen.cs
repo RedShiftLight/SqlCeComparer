@@ -8,15 +8,15 @@ using System.Diagnostics;
 
 namespace SqlCeComparer
 {
-    public partial class DatabaseTool : Form
+    public partial class MainScreen : Form
     {
 
-        public DatabaseTool()
+        public MainScreen()
         {
             InitializeComponent();
         }
 
-        #region FirstTab
+        #region Configuration Tab
         private void OldConfigBrowse_Click_1(object sender, EventArgs e)
         {
             DialogResult result = openConfigSdf.ShowDialog();
@@ -70,7 +70,7 @@ namespace SqlCeComparer
         }
         #endregion
 
-        #region Second Tab
+        #region Edit/Check Tab
         private void EditConfigBtn_Click(object sender, EventArgs e)
         {
             VehicleTypeListBox.Items.Clear();
@@ -518,7 +518,7 @@ namespace SqlCeComparer
         }
         #endregion
 
-        #region Third tab
+        #region Jim tab
         private void btnBrowseA_Click(object sender, EventArgs e)
         {
             DialogResult result = openFileDialog1.ShowDialog();
@@ -542,13 +542,36 @@ namespace SqlCeComparer
             if (!CheckFileExists(txtDatabaseA.Text)) return;
             if (!CheckFileExists(txtDatabaseB.Text)) return;
 
-            SqlCeCompareUtil util = new SqlCeCompareUtil(txtDatabaseA.Text, txtDatabaseB.Text);
-            util.GetTableList(FileIndicator.FileA);
-            util.GetTableList(FileIndicator.FileB);
-            foreach (string table in util.TableNames)
+            try
             {
+                CompareUtil util = new CompareUtil(txtDatabaseA.Text, txtDatabaseB.Text);
 
+                util.LoadSchemas();
+                Dictionary<string, Tuple<TableSchema, TableSchema, bool>> matches = util.GetTableSchemaMatches();
+                
+                //Display table Schema compare information
+                foreach (var match in matches)
+                {
+                    ListViewItem item = lvTables.Items.Add(match.Key);
+                    item.Tag = match;
+                    TableSchema tsA = match.Value.Item1;
+                    TableSchema tsB = match.Value.Item2;
+                    item.SubItems.Add(new ListViewItem.ListViewSubItem(item, YesNo(tsA != null)));
+                    item.SubItems.Add(new ListViewItem.ListViewSubItem(item, YesNo(tsB != null)));
+                    item.SubItems.Add(new ListViewItem.ListViewSubItem(item, YesNo(match.Value.Item3)));
+                }
+
+                //util.LoadData();
+                //TODO: Display table data compare information
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.ToString(), "Error comparing databases", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private string YesNo(bool value)
+        {
+            return value ? "Yes" : "**No**";
         }
 
         private bool CheckFileExists(string filePath)
@@ -559,6 +582,23 @@ namespace SqlCeComparer
                 return false;
             }
             return true;
+        }
+
+        private void lvTables_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvTables.SelectedItems.Count > 0)
+            {
+                var match = (KeyValuePair<string, Tuple<TableSchema, TableSchema, bool>>)lvTables.SelectedItems[0].Tag;
+                TableSchema tsA = match.Value.Item1;
+                TableSchema tsB = match.Value.Item2;
+                if (match.Value.Item3)
+                {
+
+                }
+
+            }
+
+            //TODO: Display a comparrison of the selected item
         }
         #endregion
     }

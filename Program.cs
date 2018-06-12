@@ -15,7 +15,7 @@ namespace SqlCeComparer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DatabaseTool());
+            Application.Run(new MainScreen());
         }
     }
 }
