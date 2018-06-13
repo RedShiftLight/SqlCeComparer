@@ -27,7 +27,7 @@ namespace SqlCeComparer
             }
 
         }
-        
+
         private void NewConfigBrowse_Click_1(object sender, EventArgs e)
         {
             DialogResult result = openConfigSdf.ShowDialog();
@@ -47,20 +47,20 @@ namespace SqlCeComparer
 
         private void OpenWinMerge_Click(object sender, EventArgs e)
         {
-            if(Directory.Exists("C:/Program Files (x86)/WinMerge"))
+            if (Directory.Exists("C:/Program Files (x86)/WinMerge"))
             {
-            ModuleDiff();
-            configDiff();
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.FileName = "C:/Program Files (x86)/WinMerge/WinMergeU.exe";
-            startInfo.Arguments = " C:/CleverWare/Temp/TestingOldConfig.txt C:/CleverWare/Temp/TestingNewConfig.txt";
-            process.StartInfo = startInfo;
-            process.Start();
+                ModuleDiff();
+                configDiff();
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.FileName = "C:/Program Files (x86)/WinMerge/WinMergeU.exe";
+                startInfo.Arguments = " C:/CleverWare/Temp/TestingOldConfig.txt C:/CleverWare/Temp/TestingNewConfig.txt";
+                process.StartInfo = startInfo;
+                process.Start();
             }
             else
             {
-             System.Diagnostics.Process.Start("http://winmerge.org/downloads/?lang=en");
+                System.Diagnostics.Process.Start("http://winmerge.org/downloads/?lang=en");
             }
         }
 
@@ -383,9 +383,9 @@ namespace SqlCeComparer
                                         isEditable, isVisible));
                     }
 
-                    
+
                 }
-                while(SqlReturn2.Read())
+                while (SqlReturn2.Read())
                 {
                     string name = Convert.ToString(SqlReturn2["Name"]);
                     string vehicleType = Convert.ToString(SqlReturn2["VehicleType"]);
@@ -417,7 +417,7 @@ namespace SqlCeComparer
                 InOldTxtBox.Text = string.Join(Environment.NewLine, (inFirstNotInSecond));
                 InNewTxtBox.Text = string.Join(Environment.NewLine, (inSecondNotInFirst));
                 textBox6.Text = string.Join(Environment.NewLine, MissingFiles);
-                
+
             }
             catch (Exception e)
             {
@@ -429,7 +429,7 @@ namespace SqlCeComparer
                 conn2.Close();
             }
         }
-        
+
         //Diff Modules in Old DB to New DB
         private void ModuleDiff()
         {
@@ -441,19 +441,19 @@ namespace SqlCeComparer
                 {
                     DialogResult MessageResult;
                     MessageResult = MessageBox.Show("Select Old Configuration .sdf", "No File Selected", MessageBoxButtons.OKCancel);
-                    
+
                     if (MessageResult == DialogResult.OK)
                     {
                         OldConfigBrowse.PerformClick();
                     }
-                    else if(MessageResult == DialogResult.Cancel)
+                    else if (MessageResult == DialogResult.Cancel)
                     {
                         return;
                     }
                 }
                 if (NewConfigTxt.Text == "")
                 {
-                    DialogResult MessageResult; 
+                    DialogResult MessageResult;
                     MessageResult = MessageBox.Show("Select New Configuration .sdf", "No File Selected", MessageBoxButtons.OKCancel);
 
                     if (MessageResult == DialogResult.OK)
@@ -484,9 +484,9 @@ namespace SqlCeComparer
                 while (SqlReturn.Read())
                 {
                     oldModuleList.Add(Convert.ToString(SqlReturn["Name"]));
-                    
+
                 }
-                while(SqlReturn2.Read())
+                while (SqlReturn2.Read())
                 {
                     newModuleList.Add(Convert.ToString(SqlReturn2["Name"]));
                 }
@@ -496,7 +496,7 @@ namespace SqlCeComparer
                 var inNewList = oldModuleList.Except(newModuleList).ToList();
                 var MissingModules = inOldList.Concat(inNewList);
                 bool isEmpty = !MissingModules.Any();
-                if(isEmpty)
+                if (isEmpty)
                 {
                     textBox3.Text = "No changes in Module tables";
 
@@ -539,6 +539,8 @@ namespace SqlCeComparer
 
         private void btnCompare_Click(object sender, EventArgs e)
         {
+            lvTables.Items.Clear();
+
             if (!CheckFileExists(txtDatabaseA.Text)) return;
             if (!CheckFileExists(txtDatabaseB.Text)) return;
 
@@ -548,7 +550,7 @@ namespace SqlCeComparer
 
                 util.LoadSchemas();
                 Dictionary<string, Tuple<TableSchema, TableSchema, bool>> matches = util.GetTableSchemaMatches();
-                
+
                 //Display table Schema compare information
                 foreach (var match in matches)
                 {
@@ -559,6 +561,16 @@ namespace SqlCeComparer
                     item.SubItems.Add(new ListViewItem.ListViewSubItem(item, YesNo(tsA != null)));
                     item.SubItems.Add(new ListViewItem.ListViewSubItem(item, YesNo(tsB != null)));
                     item.SubItems.Add(new ListViewItem.ListViewSubItem(item, YesNo(match.Value.Item3)));
+                    var cnt = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, tsA.Columns.Count.ToString()));
+
+                    if (tsA.Columns.Count != tsB.Columns.Count) cnt.Text += $", {tsB.Columns.Count}";
+                    if (!match.Value.Item3) item.BackColor = System.Drawing.Color.HotPink;
+                }
+
+                if (lvTables.Items.Count > 0)
+                {
+                    lvTables.Items[0].Selected = true;
+                    lvTables.Focus();
                 }
 
                 //util.LoadData();
@@ -586,19 +598,61 @@ namespace SqlCeComparer
 
         private void lvTables_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lvColumns.Items.Clear();
+
             if (lvTables.SelectedItems.Count > 0)
             {
                 var match = (KeyValuePair<string, Tuple<TableSchema, TableSchema, bool>>)lvTables.SelectedItems[0].Tag;
+                lblTableName.Text = match.Key;
+
                 TableSchema tsA = match.Value.Item1;
                 TableSchema tsB = match.Value.Item2;
-                if (match.Value.Item3)
+
+                List<string> columnNamesA = tsA.Columns.Select(x => x.ColumnName).ToList();
+                List<string> columnNamesB = tsB.Columns.Select(x => x.ColumnName).ToList();
+                List<string> columnNames = columnNamesA.Union(columnNamesB).OrderBy(x => x).ToList();
+
+                foreach (var columnName in columnNames)
                 {
+                    ColumnSchema schemaA = tsA.Columns.FirstOrDefault(x => x.ColumnName == columnName);
+                    ColumnSchema schemaB = tsB.Columns.FirstOrDefault(x => x.ColumnName == columnName);
+                    bool areEqual = CompareUtil.ColumnSchemaComparaer.Equals(schemaA, schemaB);
 
+                    if ((cbShowIdenticalCols.Checked && areEqual) || (cbShowDiffCols.Checked && !areEqual))
+                    {
+                        ListViewItem item = lvColumns.Items.Add(columnName);
+                        item.Tag = match;
+
+                        var s1A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                        var s2A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                        var s3A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                        var s4A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                        var diffSubItem = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, ""));
+                        var s1B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                        var s2B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                        var s3B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                        var s4B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+
+                        if (schemaA != null)
+                        {
+                            s1A.Text = schemaA.OrdinalPosition.ToString();
+                            s2A.Text = schemaA.DataType;
+                            s3A.Text = schemaA.MaxLength.ToString();
+                            s4A.Text = schemaA.IsNullable.ToString();
+                        }
+
+                        if (schemaB != null)
+                        {
+                            s1B.Text = schemaB.OrdinalPosition.ToString();
+                            s2B.Text = schemaB.DataType;
+                            s3B.Text = schemaB.MaxLength.ToString();
+                            s4B.Text = schemaB.IsNullable.ToString();
+                        }
+
+                        if (!areEqual) item.BackColor = System.Drawing.Color.HotPink;
+                    }
                 }
-
             }
-
-            //TODO: Display a comparrison of the selected item
         }
         #endregion
     }
