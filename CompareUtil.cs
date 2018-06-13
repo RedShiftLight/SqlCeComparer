@@ -10,9 +10,10 @@ namespace SqlCeComparer
     public class CompareUtil
     {
         #region Members
-        public static DbSchemaComparaer DbSchemaComparaer = new DbSchemaComparaer();
-        public static TableSchemaComparaer TableSchemaComparaer = new TableSchemaComparaer();
-        public static ColumnSchemaComparaer ColumnSchemaComparaer = new ColumnSchemaComparaer();
+        public static DbSchemaComparer DbSchemaComparer = new DbSchemaComparer();
+        public static TableSchemaComparer TableSchemaComparer = new TableSchemaComparer();
+        public static ColumnSchemaComparer ColumnSchemaComparer = new ColumnSchemaComparer();
+        public static DataComparer DataComparer = new DataComparer();
 
         private string _fileA;
         private string _fileB;
@@ -59,7 +60,7 @@ namespace SqlCeComparer
             foreach (var tbl in DbInfoA.Schema.Tables)
             {
                 DbInfoB.Schema.Tables.TryGetValue(tbl.Key, out TableSchema b);
-                bool areEqual = TableSchemaComparaer.Equals(tbl.Value, b);
+                bool areEqual = TableSchemaComparer.Equals(tbl.Value, b);
                 result.Add(tbl.Key, new Tuple<TableSchema, TableSchema, bool>(tbl.Value, b, areEqual));
             }
 
@@ -123,7 +124,7 @@ namespace SqlCeComparer
         #region Compare Schemas
         public static bool IsDbSchemaIdentical(DbSchema x, DbSchema y)
         {
-            return DbSchemaComparaer.Equals(x, y);
+            return DbSchemaComparer.Equals(x, y);
         }
 
         /// <summary>
@@ -136,7 +137,7 @@ namespace SqlCeComparer
             Dictionary<string, Tuple<TableSchema, TableSchema>> result = new Dictionary<string, Tuple<TableSchema, TableSchema>>();
             foreach (var match in matches)
             {
-                if (TableSchemaComparaer.Equals(match.Value.Item1, match.Value.Item2))
+                if (TableSchemaComparer.Equals(match.Value.Item1, match.Value.Item2))
                 {
                     result.Add(match.Key, match.Value);
                 }
@@ -154,7 +155,7 @@ namespace SqlCeComparer
             Dictionary<string, Tuple<TableSchema, TableSchema>> result = new Dictionary<string, Tuple<TableSchema, TableSchema>>();
             foreach (var match in matches)
             {
-                if (!TableSchemaComparaer.Equals(match.Value.Item1, match.Value.Item2))
+                if (!TableSchemaComparer.Equals(match.Value.Item1, match.Value.Item2))
                 {
                     result.Add(match.Key, match.Value);
                 }
