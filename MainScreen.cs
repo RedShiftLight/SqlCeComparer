@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using System.Data;
+using System.Drawing;
 
 namespace SqlCeComparer
 {
@@ -547,13 +548,13 @@ namespace SqlCeComparer
             {
                 CompareUtil util = new CompareUtil(txtDatabaseA.Text, txtDatabaseB.Text);
                 util.LoadSchemas();
+
                 Dictionary<string, Tuple<TableSchema, TableSchema, bool>> schemaMatches = util.GetTableSchemaMatches();
-                CompareSchema(schemaMatches);
+                DisplayTableSchemas(schemaMatches);
 
                 if (chkCompareData.Checked)
                 {
                     util.LoadData();
-
                     CompareData(schemaMatches, util);
                 }
             }
@@ -563,7 +564,7 @@ namespace SqlCeComparer
             }
         }
 
-        private void CompareSchema(Dictionary<string, Tuple<TableSchema, TableSchema, bool>> schemaMatches)
+        private void DisplayTableSchemas(Dictionary<string, Tuple<TableSchema, TableSchema, bool>> schemaMatches)
         {
             //Display table information
             lvSchemaTables.Items.Clear();
@@ -576,10 +577,14 @@ namespace SqlCeComparer
                 item.SubItems.Add(new ListViewItem.ListViewSubItem(item, YesNo(tsA != null)));
                 item.SubItems.Add(new ListViewItem.ListViewSubItem(item, YesNo(tsB != null)));
                 item.SubItems.Add(new ListViewItem.ListViewSubItem(item, YesNo(match.Value.Item3)));
-                var cnt = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, tsA.Columns.Count.ToString()));
 
-                if (tsA.Columns.Count != tsB.Columns.Count) cnt.Text += $", {tsB.Columns.Count}";
-                if (!match.Value.Item3) item.BackColor = System.Drawing.Color.HotPink;
+                var colCount = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, tsA.Columns.Count.ToString()));
+                if (tsA.Columns.Count != tsB.Columns.Count) colCount.Text += $", {tsB.Columns.Count}";
+
+                var idxCount = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, tsA.Indexes.Count.ToString()));
+                if (tsA.Indexes.Count != tsB.Indexes.Count) idxCount.Text += $", {tsB.Indexes.Count}";
+
+                if (!match.Value.Item3) item.BackColor = Color.HotPink;
             }
 
             if (lvSchemaTables.Items.Count > 0)
@@ -678,6 +683,7 @@ namespace SqlCeComparer
         private void lvSchemaTables_SelectedIndexChanged(object sender, EventArgs e)
         {
             lvSchemaColumns.Items.Clear();
+            lvSchemaIndexes.Items.Clear();
 
             if (lvSchemaTables.SelectedItems.Count > 0)
             {
@@ -687,52 +693,140 @@ namespace SqlCeComparer
                 TableSchema tsA = match.Value.Item1;
                 TableSchema tsB = match.Value.Item2;
 
-                List<string> columnNamesA = tsA.Columns.Select(x => x.ColumnName).ToList();
-                List<string> columnNamesB = tsB.Columns.Select(x => x.ColumnName).ToList();
-                List<string> columnNames = columnNamesA.Union(columnNamesB).OrderBy(x => x).ToList();
+                DisplayColumnSchemas(tsA, tsB);
+                DisplayIndexSchemas(tsA, tsB);
+            }
+        }
 
-                foreach (var columnName in columnNames)
+        private void DisplayColumnSchemas(TableSchema tsA, TableSchema tsB)
+        {
+            List<string> columnNamesA = tsA.Columns.Select(x => x.ColumnName).ToList();
+            List<string> columnNamesB = tsB.Columns.Select(x => x.ColumnName).ToList();
+            List<string> columnNames = columnNamesA.Union(columnNamesB).OrderBy(x => x).ToList();
+
+            bool foundDiff = false;
+            foreach (var columnName in columnNames)
+            {
+                ColumnSchema schemaA = tsA.Columns.FirstOrDefault(x => x.ColumnName == columnName);
+                ColumnSchema schemaB = tsB.Columns.FirstOrDefault(x => x.ColumnName == columnName);
+                bool areEqual = CompareUtil.ColumnSchemaComparer.Equals(schemaA, schemaB);
+
+                if ((chkSchemaShowIdentical.Checked && areEqual) || (chkSchemaShowDiff.Checked && !areEqual))
                 {
-                    ColumnSchema schemaA = tsA.Columns.FirstOrDefault(x => x.ColumnName == columnName);
-                    ColumnSchema schemaB = tsB.Columns.FirstOrDefault(x => x.ColumnName == columnName);
-                    bool areEqual = CompareUtil.ColumnSchemaComparer.Equals(schemaA, schemaB);
+                    ListViewItem item = lvSchemaColumns.Items.Add(columnName);
 
-                    if ((chkSchemaShowIdenticalCols.Checked && areEqual) || (chkSchemaShowDiffCols.Checked && !areEqual))
+                    var s1A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                    var s2A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                    var s3A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                    var s4A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                    var diffSubItem = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, ""));
+                    var s1B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                    var s2B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                    var s3B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                    var s4B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+
+                    if (schemaA != null)
                     {
-                        ListViewItem item = lvSchemaColumns.Items.Add(columnName);
-                        item.Tag = match;
+                        s1A.Text = schemaA.OrdinalPosition.ToString();
+                        s2A.Text = schemaA.DataType;
+                        s3A.Text = schemaA.MaxLength.ToString();
+                        s4A.Text = schemaA.IsNullable.ToString();
+                    }
 
-                        var s1A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
-                        var s2A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
-                        var s3A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
-                        var s4A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
-                        var diffSubItem = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, ""));
-                        var s1B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
-                        var s2B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
-                        var s3B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
-                        var s4B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                    if (schemaB != null)
+                    {
+                        s1B.Text = schemaB.OrdinalPosition.ToString();
+                        s2B.Text = schemaB.DataType;
+                        s3B.Text = schemaB.MaxLength.ToString();
+                        s4B.Text = schemaB.IsNullable.ToString();
+                    }
 
-                        if (schemaA != null)
-                        {
-                            s1A.Text = schemaA.OrdinalPosition.ToString();
-                            s2A.Text = schemaA.DataType;
-                            s3A.Text = schemaA.MaxLength.ToString();
-                            s4A.Text = schemaA.IsNullable.ToString();
-                        }
-
-                        if (schemaB != null)
-                        {
-                            s1B.Text = schemaB.OrdinalPosition.ToString();
-                            s2B.Text = schemaB.DataType;
-                            s3B.Text = schemaB.MaxLength.ToString();
-                            s4B.Text = schemaB.IsNullable.ToString();
-                        }
-
-                        if (!areEqual) item.BackColor = System.Drawing.Color.HotPink;
+                    if (!areEqual)
+                    {
+                        item.BackColor = Color.HotPink;
+                        foundDiff = true;
                     }
                 }
             }
+
+            tpSchemaColumns.Text = "Columns";
+            if (foundDiff)
+            {
+                tpSchemaColumns.Text += " *";
+                //PaintTab(tpSchemaColumns, Color.HotPink);
+            }
         }
+
+        private void DisplayIndexSchemas(TableSchema tsA, TableSchema tsB)
+        {
+            List<string> indexNamesA = tsA.Indexes.Select(x => x.IndexName).ToList();
+            List<string> indexNamesB = tsB.Indexes.Select(x => x.IndexName).ToList();
+            List<string> indexNames = indexNamesA.Union(indexNamesB).OrderBy(x => x).ToList();
+
+            throw new Exception("This is not correct yet index name is not enough...need to include ordinal position too");
+            bool foundDiff = false;
+            foreach (var indexName in indexNames)
+            {
+                IndexSchema schemaA = tsA.Indexes.FirstOrDefault(x => x.IndexName == indexName);
+                IndexSchema schemaB = tsB.Indexes.FirstOrDefault(x => x.IndexName == indexName);
+                bool areEqual = CompareUtil.IndexSchemaComparer.Equals(schemaA, schemaB);
+
+                if ((chkSchemaShowIdentical.Checked && areEqual) || (chkSchemaShowDiff.Checked && !areEqual))
+                {
+                    ListViewItem item = lvSchemaIndexes.Items.Add(indexName);
+
+                    var s1A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                    var s2A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                    var s3A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                    var diffSubItem = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, ""));
+                    var s1B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                    var s2B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                    var s3B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+
+                    if (schemaA != null)
+                    {
+                        s1A.Text = schemaA.OrdinalPosition.ToString();
+                        s2A.Text = schemaA.ColumnName;
+                        s3A.Text = schemaA.Attributes;
+                    }
+
+                    if (schemaB != null)
+                    {
+                        s1B.Text = schemaB.OrdinalPosition.ToString();
+                        s2B.Text = schemaB.ColumnName;
+                        s3B.Text = schemaB.Attributes;
+                    }
+
+                    if (!areEqual)
+                    {
+                        item.BackColor = Color.HotPink;
+                        foundDiff = true;
+                    }
+                }
+            }
+
+            tpSchemaIndexes.Text = "Indexes";
+            if (foundDiff)
+            {
+                tpSchemaIndexes.Text += " *";
+                //PaintTab(tpSchemaColumns, Color.HotPink);
+            }
+        }
+
+        /// <summary>
+        /// Not working yet
+        /// </summary>
+        private void PaintTab(TabPage tab, Color color)
+        {
+            Graphics g = tab.CreateGraphics();
+            g.FillRectangle(new SolidBrush(color), tab.Bounds);
+
+            Rectangle paddedBounds = tab.Bounds;
+            int yOffset = (tcSchemaResults.SelectedTab == tab) ? -2 : 1;
+            paddedBounds.Offset(1, yOffset);
+            TextRenderer.DrawText(g, tab.Text, tcSchemaResults.Font, paddedBounds, tab.ForeColor);
+        }
+
         #endregion
 
         #region Data tab

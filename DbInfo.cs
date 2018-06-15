@@ -40,54 +40,11 @@ namespace SqlCeComparer
             try
             {
                 conn.Open();
-
-                //Get names of tables
-                try
+                LoadTableSchemas(result, conn);
+                foreach (var item in result.Tables)
                 {
-                    SqlCeCommand cmd = conn.CreateCommand();
-                    cmd.CommandText = "SELECT table_name FROM information_schema.tables WHERE table_type = 'table' ORDER BY table_name";
-                    using (var dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            string tableName = dr["table_name"].ToString();
-                            TableSchema ts = new TableSchema(tableName);
-                            result.Tables.Add(tableName, ts);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Unable to select from information_schema.tables", ex);
-                }
-
-                //Get column information
-                try
-                {
-                    SqlCeCommand cmd = conn.CreateCommand();
-                    cmd.CommandText = "SELECT table_name, column_name, ordinal_position, data_type, is_nullable, character_maximum_length FROM information_schema.columns ORDER BY table_name, ordinal_position";
-
-                    using (var dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            ColumnSchema cs = new ColumnSchema();
-                            cs.TableName = dr["table_name"].ToString();
-                            cs.ColumnName = dr["column_name"].ToString();
-                            cs.OrdinalPosition = Convert.ToInt32(dr["ordinal_position"]);
-                            cs.DataType = dr["data_type"].ToString();
-                            string tmp = Convert.ToString(dr["is_nullable"]).ToUpper();
-                            cs.IsNullable = tmp == "YES";
-                            tmp = Convert.ToString(dr["character_maximum_length"]);
-                            if (!string.IsNullOrEmpty(tmp)) cs.MaxLength = Convert.ToInt32(dr["character_maximum_length"]);
-
-                            if (result.Tables.TryGetValue(cs.TableName, out TableSchema ts)) ts.Columns.Add(cs);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Unable to select from information_schema.columns", ex);
+                    LoadColumnSchemas(item.Value, conn);
+                    LoadIndexSchemas(item.Value, conn);
                 }
             }
             finally
@@ -96,6 +53,98 @@ namespace SqlCeComparer
             }
 
             Schema = result;
+        }
+
+        private void LoadTableSchemas(DbSchema dbSchema, SqlCeConnection conn)
+        {
+            try
+            {
+                SqlCeCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT table_name FROM information_schema.tables WHERE table_type = 'table' ORDER BY table_name";
+                using (var dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        string tableName = dr["table_name"].ToString();
+                        TableSchema ts = new TableSchema(tableName);
+                        dbSchema.Tables.Add(tableName, ts);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to select from information_schema.tables", ex);
+            }
+        }
+
+        private void LoadColumnSchemas(TableSchema tableSchema, SqlCeConnection conn)
+        {
+            //Get column information
+            try
+            {
+                SqlCeCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT column_name, ordinal_position, data_type, " +
+                    "case is_nullable when 'YES' then 1 else 0 end AS is_nullable, coalesce(character_maximum_length, 0) as character_maximum_length " +
+                    "FROM information_schema.columns WHERE table_name = @TableName ORDER BY ordinal_position";
+                cmd.Parameters.Add("@TableName", System.Data.SqlDbType.NVarChar, 255);
+                cmd.Parameters[0].Value = tableSchema.TableName;
+
+                using (var dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        ColumnSchema item = new ColumnSchema();
+                        item.TableName = tableSchema.TableName;
+                        item.ColumnName = dr[0].ToString();
+                        item.OrdinalPosition = Convert.ToInt32(dr[1]);
+                        item.DataType = dr[2].ToString();
+                        item.IsNullable = Convert.ToBoolean(dr[3]);
+                        item.MaxLength = Convert.ToInt32(dr[4]);
+
+                        tableSchema.Columns.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to select from information_schema.columns", ex);
+            }
+        }
+
+        private void LoadIndexSchemas(TableSchema tableSchema, SqlCeConnection conn)
+        {
+            //Get column information
+            try
+            {
+                SqlCeCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT index_name, ordinal_position, column_name " +
+                    ", case collation when 1 then 'Asc' else 'Desc' end as SortDirection, primary_key, [unique], [clustered] " +
+                    "FROM information_schema.indexes WHERE table_name = @TableName ORDER BY table_name, index_name, ordinal_position";
+                cmd.Parameters.Add("@TableName", System.Data.SqlDbType.NVarChar, 255);
+                cmd.Parameters[0].Value = tableSchema.TableName;
+
+                using (var dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        IndexSchema item = new IndexSchema();
+                        item.TableName = tableSchema.TableName;
+                        item.IndexName = dr[0].ToString();
+                        item.OrdinalPosition = Convert.ToInt32(dr[1]);
+                        item.ColumnName = dr[2].ToString();
+                        item.SortDirection = dr[3].ToString();
+                        item.IsPrimaryKey = Convert.ToBoolean(dr[4]);
+                        item.IsUnique = Convert.ToBoolean(dr[5]);
+                        item.IsClustered = Convert.ToBoolean(dr[6]);
+
+                        tableSchema.Indexes.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to select from information_schema.indexes", ex);
+            }
         }
 
         public void LoadData()

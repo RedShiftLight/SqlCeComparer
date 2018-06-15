@@ -55,6 +55,22 @@ namespace SqlCeComparer
         }
     }
 
+    public class IndexSchemaComparer : IEqualityComparer<IndexSchema>
+    {
+        public bool Equals(IndexSchema x, IndexSchema y)
+        {
+            if (x == null && y == null) return true;
+            if (x != null && y != null) return x.HashString == y.HashString;
+            return false;
+        }
+
+        public int GetHashCode(IndexSchema obj)
+        {
+            if (obj != null) return obj.HashString.GetHashCode();
+            return 0;
+        }
+    }
+
     public class DataComparer : IEqualityComparer<DataTable>
     {
         public bool Equals(DataTable x, DataTable y)

@@ -13,6 +13,7 @@ namespace SqlCeComparer
         public static DbSchemaComparer DbSchemaComparer = new DbSchemaComparer();
         public static TableSchemaComparer TableSchemaComparer = new TableSchemaComparer();
         public static ColumnSchemaComparer ColumnSchemaComparer = new ColumnSchemaComparer();
+        public static IndexSchemaComparer IndexSchemaComparer = new IndexSchemaComparer();
         public static DataComparer DataComparer = new DataComparer();
 
         private string _fileA;
