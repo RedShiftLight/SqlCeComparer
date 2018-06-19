@@ -8,69 +8,22 @@ using System.Diagnostics;
 using System.Data;
 using System.Drawing;
 
+//SELECT name, enabled FROM module WHERE enabled = 1 ORDER by name
+//                cmd.CommandText = @"SELECT m.Name, cv.VehicleType, cn.Name as Name2, cv.Value, cn.DataType, cv.Scope, cv.ScopeInstance, cn.IsEditable, cn.IsVisible 
+//                                    FROM ConfigurationNames cn Left Join ConfigurationValues cv on cn.id=cv.configurationid 
+//                                    Left Join Module m on m.id = cn.moduleid order by m.Name, cv.VehicleType, cn.Name";
+
 namespace SqlCeComparer
 {
     public partial class MainScreen : Form
     {
+        private CompareUtil _util = null;
+        private Color _badColor = Color.HotPink;
 
         public MainScreen()
         {
             InitializeComponent();
         }
-
-        #region Configuration Tab
-        private void OldConfigBrowse_Click_1(object sender, EventArgs e)
-        {
-            DialogResult result = openConfigSdf.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                string OldConfigPaht = openConfigSdf.InitialDirectory;
-                OldConfigTxt.Text = OldConfigPaht + openConfigSdf.FileName;
-            }
-
-        }
-
-        private void NewConfigBrowse_Click_1(object sender, EventArgs e)
-        {
-            DialogResult result = openConfigSdf.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                string NewConfigPath = openConfigSdf.InitialDirectory;
-                NewConfigTxt.Text = NewConfigPath + openConfigSdf.FileName;
-            }
-
-        }
-
-        private void CheckChangesButton_Click(object sender, EventArgs e)
-        {
-            ModuleDiff();
-            configDiff();
-        }
-
-        private void OpenWinMerge_Click(object sender, EventArgs e)
-        {
-            if (Directory.Exists("C:/Program Files (x86)/WinMerge"))
-            {
-                ModuleDiff();
-                configDiff();
-                System.Diagnostics.Process process = new System.Diagnostics.Process();
-                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                startInfo.FileName = "C:/Program Files (x86)/WinMerge/WinMergeU.exe";
-                startInfo.Arguments = " C:/CleverWare/Temp/TestingOldConfig.txt C:/CleverWare/Temp/TestingNewConfig.txt";
-                process.StartInfo = startInfo;
-                process.Start();
-            }
-            else
-            {
-                System.Diagnostics.Process.Start("http://winmerge.org/downloads/?lang=en");
-            }
-        }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("http://winmerge.org/downloads/?lang=en");
-        }
-        #endregion
 
         #region Edit/Check Tab
         private void EditConfigBtn_Click(object sender, EventArgs e)
@@ -333,194 +286,14 @@ namespace SqlCeComparer
         #endregion
 
         #region Private methods
-        //Diff Configuration Values from Old DB to New DB
-        private void configDiff()
-        {
-            SqlCeConnection conn = null;
-            SqlCeConnection conn2 = null;
-            try
-            {
-                System.IO.Directory.CreateDirectory("C:/CleverWare/Temp");
-                conn = new SqlCeConnection("Data Source =  " + OldConfigTxt.Text);
-                conn.Open();
-
-                conn2 = new SqlCeConnection("Data Source =  " + NewConfigTxt.Text);
-                conn2.Open();
-
-                SqlCeCommand cmd = conn.CreateCommand();
-                SqlCeCommand cmd2 = conn2.CreateCommand();
-                cmd.CommandText = @"SELECT m.Name, cv.VehicleType, cn.Name as Name2, cv.Value, cn.DataType, cv.Scope, cv.ScopeInstance, cn.IsEditable, cn.IsVisible 
-                                    FROM ConfigurationNames cn Left Join ConfigurationValues cv on cn.id=cv.configurationid 
-                                    Left Join Module m on m.id = cn.moduleid order by m.Name, cv.VehicleType, cn.Name";
-                cmd2.CommandText = @"SELECT m.Name, cv.VehicleType, cn.Name as Name2, cv.Value, cn.DataType, cv.Scope, cv.ScopeInstance, cn.IsEditable, cn.IsVisible 
-                                    FROM ConfigurationNames cn Left Join ConfigurationValues cv on cn.id=cv.configurationid 
-                                    Left Join Module m on m.id = cn.moduleid order by m.Name, cv.VehicleType, cn.Name";
-                var SqlReturn = cmd.ExecuteReader();
-                var SqlReturn2 = cmd2.ExecuteReader();
-                var oldConfigList = new List<string>();
-                var newConfigList = new List<string>();
-                var returnlist = new List<string>();
-                var fileold = new StreamWriter("C:/CleverWare/Temp/TestingOldConfig.txt");
-                fileold.Close();
-                var filenew = new StreamWriter("C:/CleverWare/Temp/TestingNewConfig.txt");
-                filenew.Close();
-                while (SqlReturn.Read())
-                {
-                    string name = Convert.ToString(SqlReturn["Name"]);
-                    string vehicleType = Convert.ToString(SqlReturn["VehicleType"]);
-                    string cname = Convert.ToString(SqlReturn["Name2"]);
-                    string value = Convert.ToString(SqlReturn["Value"]);
-                    string DataType = Convert.ToString(SqlReturn["DataType"]);
-                    string Scope = Convert.ToString(SqlReturn["Scope"]);
-                    string ScopeInstance = Convert.ToString(SqlReturn["ScopeInstance"]);
-                    string isEditable = Convert.ToString(SqlReturn["isEditable"]);
-                    string isVisible = Convert.ToString(SqlReturn["isVisible"]);
-                    newConfigList.Add(String.Format(@"{0},{1},{2},{3},{4},{5},{6},{7},{8}",
-                                        name, vehicleType, cname, value, DataType, Scope, ScopeInstance,
-                                        isEditable, isVisible));
-                    using (var writer = new StreamWriter("C:/CleverWare/Temp/TestingOldConfig.txt", true))
-                    {
-                        writer.WriteLine(String.Format(@"{0},{1},{2},{3},{4},{5},{6},{7},{8}",
-                                        name, vehicleType, cname, value, DataType, Scope, ScopeInstance,
-                                        isEditable, isVisible));
-                    }
-
-
-                }
-                while (SqlReturn2.Read())
-                {
-                    string name = Convert.ToString(SqlReturn2["Name"]);
-                    string vehicleType = Convert.ToString(SqlReturn2["VehicleType"]);
-                    string cname = Convert.ToString(SqlReturn2["Name2"]);
-                    string value = Convert.ToString(SqlReturn2["Value"]);
-                    string DataType = Convert.ToString(SqlReturn2["DataType"]);
-                    string Scope = Convert.ToString(SqlReturn2["Scope"]);
-                    string ScopeInstance = Convert.ToString(SqlReturn2["ScopeInstance"]);
-                    string isEditable = Convert.ToString(SqlReturn2["isEditable"]);
-                    string isVisible = Convert.ToString(SqlReturn2["isVisible"]);
-                    newConfigList.Add(String.Format(@"{0},{1},{2},{3},{4},{5},{6},{7},{8}",
-                                        name, vehicleType, cname, value, DataType, Scope, ScopeInstance,
-                                        isEditable, isVisible));
-                    using (var writer = new StreamWriter("C:/CleverWare/Temp/TestingNewConfig.txt", true))
-                    {
-                        writer.WriteLine(String.Format(@"{0},{1},{2},{3},{4},{5},{6},{7},{8}",
-                                        name, vehicleType, cname, value, DataType, Scope, ScopeInstance,
-                                        isEditable, isVisible));
-                    }
-
-                }
-
-                var file1Lines = File.ReadAllLines("C:/CleverWare/Temp/TestingOldConfig.txt");
-                var file2Lines = File.ReadAllLines("C:/CleverWare/Temp/TestingNewConfig.txt");
-                IEnumerable<String> inFirstNotInSecond = file1Lines.Except(file2Lines);
-                IEnumerable<String> inSecondNotInFirst = file2Lines.Except(file1Lines);
-                //IEnumerable<String>ReadLines 
-                var MissingFiles = inFirstNotInSecond.Concat(inSecondNotInFirst);
-                InOldTxtBox.Text = string.Join(Environment.NewLine, (inFirstNotInSecond));
-                InNewTxtBox.Text = string.Join(Environment.NewLine, (inSecondNotInFirst));
-                textBox6.Text = string.Join(Environment.NewLine, MissingFiles);
-
-            }
-            catch (Exception e)
-            {
-                InOldTxtBox.Text = ("Config Error: " + Convert.ToString(e));
-            }
-            finally
-            {
-                conn.Close();
-                conn2.Close();
-            }
-        }
-
-        //Diff Modules in Old DB to New DB
-        private void ModuleDiff()
-        {
-            SqlCeConnection conn = null;
-            SqlCeConnection conn2 = null;
-            try
-            {
-                if (OldConfigTxt.Text == "")
-                {
-                    DialogResult MessageResult;
-                    MessageResult = MessageBox.Show("Select Old Configuration .sdf", "No File Selected", MessageBoxButtons.OKCancel);
-
-                    if (MessageResult == DialogResult.OK)
-                    {
-                        OldConfigBrowse.PerformClick();
-                    }
-                    else if (MessageResult == DialogResult.Cancel)
-                    {
-                        return;
-                    }
-                }
-                if (NewConfigTxt.Text == "")
-                {
-                    DialogResult MessageResult;
-                    MessageResult = MessageBox.Show("Select New Configuration .sdf", "No File Selected", MessageBoxButtons.OKCancel);
-
-                    if (MessageResult == DialogResult.OK)
-                    {
-                        NewConfigBrowse.PerformClick();
-                    }
-                    else if (MessageResult == DialogResult.Cancel)
-                    {
-                        return;
-                    }
-                }
-
-                conn = new SqlCeConnection("Data Source =  " + OldConfigTxt.Text);
-                conn.Open();
-
-                conn2 = new SqlCeConnection("Data Source =  " + NewConfigTxt.Text);
-                conn2.Open();
-
-                SqlCeCommand cmd = conn.CreateCommand();
-                SqlCeCommand cmd2 = conn2.CreateCommand();
-                cmd.CommandText = "SELECT name, enabled FROM module WHERE enabled = 1 ORDER by name";
-                cmd2.CommandText = "SELECT name, enabled FROM module WHERE enabled = 1 ORDER by name";
-                textBox1.Text = string.Empty;
-                var SqlReturn = cmd.ExecuteReader();
-                var SqlReturn2 = cmd2.ExecuteReader();
-                var oldModuleList = new List<string>();
-                var newModuleList = new List<string>();
-                while (SqlReturn.Read())
-                {
-                    oldModuleList.Add(Convert.ToString(SqlReturn["Name"]));
-
-                }
-                while (SqlReturn2.Read())
-                {
-                    newModuleList.Add(Convert.ToString(SqlReturn2["Name"]));
-                }
-                textBox1.Text = string.Join(Environment.NewLine, oldModuleList);
-                textBox2.Text = string.Join(Environment.NewLine, newModuleList);
-                var inOldList = newModuleList.Except(oldModuleList).ToList();
-                var inNewList = oldModuleList.Except(newModuleList).ToList();
-                var MissingModules = inOldList.Concat(inNewList);
-                bool isEmpty = !MissingModules.Any();
-                if (isEmpty)
-                {
-                    textBox3.Text = "No changes in Module tables";
-
-                }
-                else
-                {
-                    textBox3.Text = string.Join(Environment.NewLine, MissingModules);
-                }
-            }
-            catch (Exception e)
-            {
-                InOldTxtBox.Text = (" Module Error: " + Convert.ToString(e));
-            }
-            finally
-            {
-                conn.Close();
-                conn2.Close();
-            }
-        }
         #endregion
 
         #region Form
+        private void MainScreen_Load(object sender, EventArgs e)
+        {
+            lblSchemaTableName.Text = string.Empty;
+        }
+
         private void btnBrowseA_Click(object sender, EventArgs e)
         {
             DialogResult result = openFileDialog1.ShowDialog();
@@ -546,22 +319,32 @@ namespace SqlCeComparer
 
             try
             {
-                CompareUtil util = new CompareUtil(txtDatabaseA.Text, txtDatabaseB.Text);
-                util.LoadSchemas();
+                _util = new CompareUtil(txtDatabaseA.Text, txtDatabaseB.Text);
+                _util.LoadSchemas();
 
-                Dictionary<string, Tuple<TableSchema, TableSchema, bool>> schemaMatches = util.GetTableSchemaMatches();
+                Dictionary<string, Tuple<TableSchema, TableSchema, bool>> schemaMatches = _util.GetTableSchemaMatches();
                 DisplayTableSchemas(schemaMatches);
 
                 if (chkCompareData.Checked)
                 {
-                    util.LoadData();
-                    CompareData(schemaMatches, util);
+                    _util.LoadData();
+                    CompareData(schemaMatches);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(this, ex.ToString(), "Error comparing databases", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private bool CheckFileExists(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                MessageBox.Show(this, $"The file {filePath} does not exist", "No File Found", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+            return true;
         }
 
         private void DisplayTableSchemas(Dictionary<string, Tuple<TableSchema, TableSchema, bool>> schemaMatches)
@@ -584,7 +367,7 @@ namespace SqlCeComparer
                 var idxCount = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, tsA.Indexes.Count.ToString()));
                 if (tsA.Indexes.Count != tsB.Indexes.Count) idxCount.Text += $", {tsB.Indexes.Count}";
 
-                if (!match.Value.Item3) item.BackColor = Color.HotPink;
+                if (!match.Value.Item3) item.BackColor = _badColor;
             }
 
             if (lvSchemaTables.Items.Count > 0)
@@ -594,10 +377,10 @@ namespace SqlCeComparer
             }
         }
 
-        private void CompareData(Dictionary<string, Tuple<TableSchema, TableSchema, bool>> schemaMatches, CompareUtil util)
+        private void CompareData(Dictionary<string, Tuple<TableSchema, TableSchema, bool>> schemaMatches)
         {
-            DataSet dataSetA = util.DbInfoA.MyDataSet;
-            DataSet dataSetB = util.DbInfoB.MyDataSet;
+            DataSet dataSetA = _util.DbInfoA.MyDataSet;
+            DataSet dataSetB = _util.DbInfoB.MyDataSet;
             if (dataSetA == null || dataSetB == null) return;
 
             //Display table information
@@ -605,7 +388,6 @@ namespace SqlCeComparer
             foreach (var match in schemaMatches)
             {
                 ListViewItem item = lvDataTables.Items.Add(match.Key);
-                item.Tag = match;
                 TableSchema tsA = match.Value.Item1;
                 TableSchema tsB = match.Value.Item2;
                 item.SubItems.Add(new ListViewItem.ListViewSubItem(item, YesNo(tsA != null)));
@@ -628,9 +410,11 @@ namespace SqlCeComparer
                     cntB.Text = dtB.Rows.Count.ToString();
                 }
 
-                bool areEqual = CompareUtil.DataComparer.Equals(dtA, dtB);
+                bool areEqual = CompareUtil.DataTableComparer.Equals(dtA, dtB);
                 equalCol.Text = YesNo(areEqual);
-                if (!areEqual) item.BackColor = System.Drawing.Color.HotPink;
+                Tuple<string, DataTable, DataTable, bool> tag = new Tuple<string, DataTable, DataTable, bool>(match.Key, dtA, dtB, areEqual);
+                item.Tag = tag;
+                if (!areEqual) item.BackColor = _badColor;
             }
 
             if (lvDataTables.Items.Count > 0)
@@ -638,29 +422,6 @@ namespace SqlCeComparer
                 lvDataTables.Items[0].Selected = true;
                 lvDataTables.Focus();
             }
-
-
-            ////Display table Schema compare information
-            //foreach (var match in schemaMatches)
-            //{
-            //    ListViewItem item = lvSchemaTables.Items.Add(match.Key);
-            //    item.Tag = match;
-            //    TableSchema tsA = match.Value.Item1;
-            //    TableSchema tsB = match.Value.Item2;
-            //    item.SubItems.Add(new ListViewItem.ListViewSubItem(item, YesNo(tsA != null)));
-            //    item.SubItems.Add(new ListViewItem.ListViewSubItem(item, YesNo(tsB != null)));
-            //    item.SubItems.Add(new ListViewItem.ListViewSubItem(item, YesNo(match.Value.Item3)));
-            //    var cnt = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, tsA.Columns.Count.ToString()));
-
-            //    if (tsA.Columns.Count != tsB.Columns.Count) cnt.Text += $", {tsB.Columns.Count}";
-            //    if (!match.Value.Item3) item.BackColor = System.Drawing.Color.HotPink;
-            //}
-
-            //if (lvSchemaTables.Items.Count > 0)
-            //{
-            //    lvSchemaTables.Items[0].Selected = true;
-            //    lvSchemaTables.Focus();
-            //}
         }
 
         private string YesNo(bool value)
@@ -670,16 +431,6 @@ namespace SqlCeComparer
         #endregion
 
         #region Schema tab
-        private bool CheckFileExists(string filePath)
-        {
-            if (!File.Exists(filePath))
-            {
-                MessageBox.Show(this, $"The file {filePath} does not exist", "No File Found", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            }
-            return true;
-        }
-
         private void lvSchemaTables_SelectedIndexChanged(object sender, EventArgs e)
         {
             lvSchemaColumns.Items.Clear();
@@ -743,7 +494,7 @@ namespace SqlCeComparer
 
                     if (!areEqual)
                     {
-                        item.BackColor = Color.HotPink;
+                        item.BackColor = _badColor;
                         foundDiff = true;
                     }
                 }
@@ -753,7 +504,7 @@ namespace SqlCeComparer
             if (foundDiff)
             {
                 tpSchemaColumns.Text += " ***";
-                //PaintTab(tpSchemaColumns, Color.HotPink);
+                //PaintTab(tpSchemaColumns, _badColor);
             }
         }
 
@@ -798,7 +549,7 @@ namespace SqlCeComparer
 
                         if (!areEqual)
                         {
-                            item.BackColor = Color.HotPink;
+                            item.BackColor = _badColor;
                             foundDiff = true;
                         }
                     }
@@ -813,7 +564,23 @@ namespace SqlCeComparer
         #region Data tab
         private void lvDataTables_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //lvDataRows.Items.Clear();
+            lvDataRows.Items.Clear();
+
+            if (lvDataTables.SelectedItems.Count > 0)
+            {
+                var match = (Tuple<string, DataTable, DataTable, bool>)lvDataTables.SelectedItems[0].Tag;
+                lblDataTableName.Text = match.Item1;
+
+                DataTable dtA = match.Item2;
+                DataTable dtB = match.Item3;
+
+                DisplayDataRows(dtA, dtB);
+            }
+        }
+
+        private void DisplayDataRows(DataTable dtA, DataTable dtB)
+        {
+            //throw new NotImplementedException();
 
             //if (lvSchemaTables.SelectedItems.Count > 0)
             //{
@@ -864,16 +631,12 @@ namespace SqlCeComparer
             //                s4B.Text = schemaB.IsNullable.ToString();
             //            }
 
-            //            if (!areEqual) item.BackColor = System.Drawing.Color.HotPink;
+            //            if (!areEqual) item.BackColor = _badColor;
             //        }
             //    }
             //}
         }
         #endregion
 
-        private void MainScreen_Load(object sender, EventArgs e)
-        {
-            lblSchemaTableName.Text = string.Empty;
-        }
     }
 }

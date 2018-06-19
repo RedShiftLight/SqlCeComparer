@@ -71,7 +71,7 @@ namespace SqlCeComparer
         }
     }
 
-    public class DataComparer : IEqualityComparer<DataTable>
+    public class DataTableComparer : IEqualityComparer<DataTable>
     {
         public bool Equals(DataTable x, DataTable y)
         {

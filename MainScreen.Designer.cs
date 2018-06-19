@@ -66,30 +66,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.EditConfigTxt = new System.Windows.Forms.TextBox();
             this.EditConfigBtn = new System.Windows.Forms.Button();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.InOldTxtBox = new System.Windows.Forms.TextBox();
-            this.OldTxtBox = new System.Windows.Forms.Label();
-            this.InNewTxtBox = new System.Windows.Forms.TextBox();
-            this.NewTxtBox = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.OpenWinMerge = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.NewConfigTxt = new System.Windows.Forms.TextBox();
-            this.OldConfigTxt = new System.Windows.Forms.TextBox();
-            this.CheckChangesButton = new System.Windows.Forms.Button();
-            this.NewConfigBrowse = new System.Windows.Forms.Button();
-            this.NewConfigLabel = new System.Windows.Forms.Label();
-            this.OldConfigBrowse = new System.Windows.Forms.Button();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.Tab = new System.Windows.Forms.TabControl();
             this.tabSchema = new System.Windows.Forms.TabPage();
             this.tcSchemaResults = new System.Windows.Forms.TabControl();
@@ -143,6 +119,17 @@
             this.btnBrowseA = new System.Windows.Forms.Button();
             this.chkCompareData = new System.Windows.Forms.CheckBox();
             this.label18 = new System.Windows.Forms.Label();
+            this.lvDataRows = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblDataTableName = new System.Windows.Forms.Label();
+            this.chkDataShowDiff = new System.Windows.Forms.CheckBox();
+            this.chkDataShowIdentical = new System.Windows.Forms.CheckBox();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dwelltimehelp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.remotevalhelp)).BeginInit();
@@ -152,15 +139,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.buslinkadapterhelp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.otaserverhelp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OtaLocalPicHlp)).BeginInit();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
             this.Tab.SuspendLayout();
             this.tabSchema.SuspendLayout();
             this.tcSchemaResults.SuspendLayout();
@@ -218,7 +196,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(702, 602);
+            this.tabPage2.Size = new System.Drawing.Size(695, 592);
             this.tabPage2.TabIndex = 2;
             this.tabPage2.Text = "Edit / Check Testing Configuration";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -241,7 +219,7 @@
             this.updateReturnTxt.Multiline = true;
             this.updateReturnTxt.Name = "updateReturnTxt";
             this.updateReturnTxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.updateReturnTxt.Size = new System.Drawing.Size(661, 212);
+            this.updateReturnTxt.Size = new System.Drawing.Size(654, 202);
             this.updateReturnTxt.TabIndex = 93;
             // 
             // dwelltimehelp
@@ -482,7 +460,7 @@
             // CheckValuesBtn
             // 
             this.CheckValuesBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CheckValuesBtn.Location = new System.Drawing.Point(602, 52);
+            this.CheckValuesBtn.Location = new System.Drawing.Point(595, 52);
             this.CheckValuesBtn.Name = "CheckValuesBtn";
             this.CheckValuesBtn.Size = new System.Drawing.Size(75, 23);
             this.CheckValuesBtn.TabIndex = 62;
@@ -494,7 +472,7 @@
             // 
             this.VehicleTypeLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.VehicleTypeLbl.AutoSize = true;
-            this.VehicleTypeLbl.Location = new System.Drawing.Point(454, 63);
+            this.VehicleTypeLbl.Location = new System.Drawing.Point(447, 63);
             this.VehicleTypeLbl.Name = "VehicleTypeLbl";
             this.VehicleTypeLbl.Size = new System.Drawing.Size(139, 13);
             this.VehicleTypeLbl.TabIndex = 61;
@@ -504,7 +482,7 @@
             // 
             this.VehicleTypeListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.VehicleTypeListBox.FormattingEnabled = true;
-            this.VehicleTypeListBox.Location = new System.Drawing.Point(457, 82);
+            this.VehicleTypeListBox.Location = new System.Drawing.Point(450, 82);
             this.VehicleTypeListBox.Name = "VehicleTypeListBox";
             this.VehicleTypeListBox.Size = new System.Drawing.Size(220, 214);
             this.VehicleTypeListBox.TabIndex = 60;
@@ -524,284 +502,19 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.EditConfigTxt.Location = new System.Drawing.Point(208, 8);
             this.EditConfigTxt.Name = "EditConfigTxt";
-            this.EditConfigTxt.Size = new System.Drawing.Size(385, 20);
+            this.EditConfigTxt.Size = new System.Drawing.Size(378, 20);
             this.EditConfigTxt.TabIndex = 48;
             // 
             // EditConfigBtn
             // 
             this.EditConfigBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.EditConfigBtn.Location = new System.Drawing.Point(602, 6);
+            this.EditConfigBtn.Location = new System.Drawing.Point(595, 6);
             this.EditConfigBtn.Name = "EditConfigBtn";
             this.EditConfigBtn.Size = new System.Drawing.Size(75, 23);
             this.EditConfigBtn.TabIndex = 47;
             this.EditConfigBtn.Text = "Browse";
             this.EditConfigBtn.UseVisualStyleBackColor = true;
             this.EditConfigBtn.Click += new System.EventHandler(this.EditConfigBtn_Click);
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.linkLabel1);
-            this.tabPage1.Controls.Add(this.splitContainer1);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.OpenWinMerge);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.textBox2);
-            this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Controls.Add(this.NewConfigTxt);
-            this.tabPage1.Controls.Add(this.OldConfigTxt);
-            this.tabPage1.Controls.Add(this.CheckChangesButton);
-            this.tabPage1.Controls.Add(this.NewConfigBrowse);
-            this.tabPage1.Controls.Add(this.NewConfigLabel);
-            this.tabPage1.Controls.Add(this.OldConfigBrowse);
-            this.tabPage1.Controls.Add(this.splitContainer2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(702, 602);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Configuration";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(539, 175);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(107, 13);
-            this.linkLabel1.TabIndex = 49;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Download WinMerge";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.BackColor = System.Drawing.SystemColors.Window;
-            this.splitContainer1.Location = new System.Drawing.Point(28, 206);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.InOldTxtBox);
-            this.splitContainer1.Panel1.Controls.Add(this.OldTxtBox);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.InNewTxtBox);
-            this.splitContainer1.Panel2.Controls.Add(this.NewTxtBox);
-            this.splitContainer1.Size = new System.Drawing.Size(636, 134);
-            this.splitContainer1.SplitterDistance = 316;
-            this.splitContainer1.TabIndex = 48;
-            // 
-            // InOldTxtBox
-            // 
-            this.InOldTxtBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.InOldTxtBox.Location = new System.Drawing.Point(0, 13);
-            this.InOldTxtBox.Multiline = true;
-            this.InOldTxtBox.Name = "InOldTxtBox";
-            this.InOldTxtBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.InOldTxtBox.Size = new System.Drawing.Size(316, 121);
-            this.InOldTxtBox.TabIndex = 39;
-            // 
-            // OldTxtBox
-            // 
-            this.OldTxtBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.OldTxtBox.Location = new System.Drawing.Point(0, 0);
-            this.OldTxtBox.Name = "OldTxtBox";
-            this.OldTxtBox.Size = new System.Drawing.Size(316, 13);
-            this.OldTxtBox.TabIndex = 48;
-            this.OldTxtBox.Text = "Only In Old Configuration";
-            // 
-            // InNewTxtBox
-            // 
-            this.InNewTxtBox.BackColor = System.Drawing.SystemColors.Info;
-            this.InNewTxtBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.InNewTxtBox.Location = new System.Drawing.Point(0, 13);
-            this.InNewTxtBox.Multiline = true;
-            this.InNewTxtBox.Name = "InNewTxtBox";
-            this.InNewTxtBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.InNewTxtBox.Size = new System.Drawing.Size(316, 121);
-            this.InNewTxtBox.TabIndex = 40;
-            // 
-            // NewTxtBox
-            // 
-            this.NewTxtBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.NewTxtBox.Location = new System.Drawing.Point(0, 0);
-            this.NewTxtBox.Name = "NewTxtBox";
-            this.NewTxtBox.Size = new System.Drawing.Size(316, 13);
-            this.NewTxtBox.TabIndex = 49;
-            this.NewTxtBox.Text = "Only In New Configuration";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(22, 14);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(138, 13);
-            this.label4.TabIndex = 46;
-            this.label4.Text = "Select Old Configuration.sdf";
-            // 
-            // OpenWinMerge
-            // 
-            this.OpenWinMerge.Location = new System.Drawing.Point(519, 134);
-            this.OpenWinMerge.Name = "OpenWinMerge";
-            this.OpenWinMerge.Size = new System.Drawing.Size(149, 38);
-            this.OpenWinMerge.TabIndex = 44;
-            this.OpenWinMerge.Text = "Open In Win Merge";
-            this.OpenWinMerge.UseVisualStyleBackColor = true;
-            this.OpenWinMerge.Click += new System.EventHandler(this.OpenWinMerge_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(349, 69);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(86, 13);
-            this.label2.TabIndex = 36;
-            this.label2.Text = "New Module List";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 69);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
-            this.label1.TabIndex = 35;
-            this.label1.Text = "Old Module List";
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.Info;
-            this.textBox2.Location = new System.Drawing.Point(287, 87);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(207, 101);
-            this.textBox2.TabIndex = 34;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(29, 87);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(252, 101);
-            this.textBox1.TabIndex = 33;
-            // 
-            // NewConfigTxt
-            // 
-            this.NewConfigTxt.Location = new System.Drawing.Point(166, 35);
-            this.NewConfigTxt.Name = "NewConfigTxt";
-            this.NewConfigTxt.Size = new System.Drawing.Size(358, 20);
-            this.NewConfigTxt.TabIndex = 30;
-            // 
-            // OldConfigTxt
-            // 
-            this.OldConfigTxt.Location = new System.Drawing.Point(166, 6);
-            this.OldConfigTxt.Name = "OldConfigTxt";
-            this.OldConfigTxt.Size = new System.Drawing.Size(358, 20);
-            this.OldConfigTxt.TabIndex = 27;
-            // 
-            // CheckChangesButton
-            // 
-            this.CheckChangesButton.Location = new System.Drawing.Point(519, 90);
-            this.CheckChangesButton.Name = "CheckChangesButton";
-            this.CheckChangesButton.Size = new System.Drawing.Size(149, 38);
-            this.CheckChangesButton.TabIndex = 32;
-            this.CheckChangesButton.Text = "Check Configuration Changes";
-            this.CheckChangesButton.UseVisualStyleBackColor = true;
-            this.CheckChangesButton.Click += new System.EventHandler(this.CheckChangesButton_Click);
-            // 
-            // NewConfigBrowse
-            // 
-            this.NewConfigBrowse.Location = new System.Drawing.Point(530, 33);
-            this.NewConfigBrowse.Name = "NewConfigBrowse";
-            this.NewConfigBrowse.Size = new System.Drawing.Size(75, 23);
-            this.NewConfigBrowse.TabIndex = 31;
-            this.NewConfigBrowse.Text = "Browse";
-            this.NewConfigBrowse.UseVisualStyleBackColor = true;
-            this.NewConfigBrowse.Click += new System.EventHandler(this.NewConfigBrowse_Click_1);
-            // 
-            // NewConfigLabel
-            // 
-            this.NewConfigLabel.AutoSize = true;
-            this.NewConfigLabel.Location = new System.Drawing.Point(22, 38);
-            this.NewConfigLabel.Name = "NewConfigLabel";
-            this.NewConfigLabel.Size = new System.Drawing.Size(144, 13);
-            this.NewConfigLabel.TabIndex = 29;
-            this.NewConfigLabel.Text = "Select New Configuration.sdf";
-            // 
-            // OldConfigBrowse
-            // 
-            this.OldConfigBrowse.Location = new System.Drawing.Point(530, 4);
-            this.OldConfigBrowse.Name = "OldConfigBrowse";
-            this.OldConfigBrowse.Size = new System.Drawing.Size(75, 23);
-            this.OldConfigBrowse.TabIndex = 26;
-            this.OldConfigBrowse.Text = "Browse";
-            this.OldConfigBrowse.UseVisualStyleBackColor = true;
-            this.OldConfigBrowse.Click += new System.EventHandler(this.OldConfigBrowse_Click_1);
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer2.Location = new System.Drawing.Point(28, 432);
-            this.splitContainer2.Name = "splitContainer2";
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.textBox6);
-            this.splitContainer2.Panel1.Controls.Add(this.label6);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.textBox3);
-            this.splitContainer2.Panel2.Controls.Add(this.label3);
-            this.splitContainer2.Size = new System.Drawing.Size(635, 115);
-            this.splitContainer2.SplitterDistance = 317;
-            this.splitContainer2.TabIndex = 47;
-            // 
-            // textBox6
-            // 
-            this.textBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox6.Location = new System.Drawing.Point(0, 13);
-            this.textBox6.Multiline = true;
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox6.Size = new System.Drawing.Size(317, 102);
-            this.textBox6.TabIndex = 41;
-            // 
-            // label6
-            // 
-            this.label6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label6.Location = new System.Drawing.Point(0, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(317, 13);
-            this.label6.TabIndex = 43;
-            this.label6.Text = "All Changes In Configuration Values";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox3.Location = new System.Drawing.Point(0, 13);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox3.Size = new System.Drawing.Size(314, 102);
-            this.textBox3.TabIndex = 37;
-            // 
-            // label3
-            // 
-            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.Location = new System.Drawing.Point(0, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(314, 13);
-            this.label3.TabIndex = 38;
-            this.label3.Text = "All Changes In Modules";
             // 
             // Tab
             // 
@@ -810,12 +523,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Tab.Controls.Add(this.tabSchema);
             this.Tab.Controls.Add(this.tabData);
-            this.Tab.Controls.Add(this.tabPage1);
             this.Tab.Controls.Add(this.tabPage2);
             this.Tab.Location = new System.Drawing.Point(0, 65);
             this.Tab.Name = "Tab";
             this.Tab.SelectedIndex = 0;
-            this.Tab.Size = new System.Drawing.Size(710, 628);
+            this.Tab.Size = new System.Drawing.Size(703, 618);
             this.Tab.TabIndex = 0;
             // 
             // tabSchema
@@ -828,7 +540,7 @@
             this.tabSchema.Controls.Add(this.lvSchemaTables);
             this.tabSchema.Location = new System.Drawing.Point(4, 22);
             this.tabSchema.Name = "tabSchema";
-            this.tabSchema.Size = new System.Drawing.Size(702, 602);
+            this.tabSchema.Size = new System.Drawing.Size(695, 592);
             this.tabSchema.TabIndex = 3;
             this.tabSchema.Text = "Schema";
             this.tabSchema.UseVisualStyleBackColor = true;
@@ -843,7 +555,7 @@
             this.tcSchemaResults.Location = new System.Drawing.Point(8, 294);
             this.tcSchemaResults.Name = "tcSchemaResults";
             this.tcSchemaResults.SelectedIndex = 0;
-            this.tcSchemaResults.Size = new System.Drawing.Size(686, 305);
+            this.tcSchemaResults.Size = new System.Drawing.Size(679, 295);
             this.tcSchemaResults.TabIndex = 58;
             // 
             // tpSchemaColumns
@@ -852,7 +564,7 @@
             this.tpSchemaColumns.Location = new System.Drawing.Point(4, 22);
             this.tpSchemaColumns.Name = "tpSchemaColumns";
             this.tpSchemaColumns.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSchemaColumns.Size = new System.Drawing.Size(678, 279);
+            this.tpSchemaColumns.Size = new System.Drawing.Size(671, 269);
             this.tpSchemaColumns.TabIndex = 0;
             this.tpSchemaColumns.Text = "Columns";
             this.tpSchemaColumns.UseVisualStyleBackColor = true;
@@ -877,7 +589,7 @@
             this.lvSchemaColumns.Location = new System.Drawing.Point(3, 3);
             this.lvSchemaColumns.MultiSelect = false;
             this.lvSchemaColumns.Name = "lvSchemaColumns";
-            this.lvSchemaColumns.Size = new System.Drawing.Size(672, 273);
+            this.lvSchemaColumns.Size = new System.Drawing.Size(665, 263);
             this.lvSchemaColumns.TabIndex = 56;
             this.lvSchemaColumns.UseCompatibleStateImageBehavior = false;
             this.lvSchemaColumns.View = System.Windows.Forms.View.Details;
@@ -938,7 +650,7 @@
             this.tpSchemaIndexes.Location = new System.Drawing.Point(4, 22);
             this.tpSchemaIndexes.Name = "tpSchemaIndexes";
             this.tpSchemaIndexes.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSchemaIndexes.Size = new System.Drawing.Size(678, 279);
+            this.tpSchemaIndexes.Size = new System.Drawing.Size(671, 269);
             this.tpSchemaIndexes.TabIndex = 1;
             this.tpSchemaIndexes.Text = "Indexes";
             this.tpSchemaIndexes.UseVisualStyleBackColor = true;
@@ -961,7 +673,7 @@
             this.lvSchemaIndexes.Location = new System.Drawing.Point(3, 3);
             this.lvSchemaIndexes.MultiSelect = false;
             this.lvSchemaIndexes.Name = "lvSchemaIndexes";
-            this.lvSchemaIndexes.Size = new System.Drawing.Size(672, 273);
+            this.lvSchemaIndexes.Size = new System.Drawing.Size(665, 263);
             this.lvSchemaIndexes.TabIndex = 0;
             this.lvSchemaIndexes.UseCompatibleStateImageBehavior = false;
             this.lvSchemaIndexes.View = System.Windows.Forms.View.Details;
@@ -1020,7 +732,7 @@
             this.chkSchemaShowDiff.AutoSize = true;
             this.chkSchemaShowDiff.Checked = true;
             this.chkSchemaShowDiff.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSchemaShowDiff.Location = new System.Drawing.Point(589, 271);
+            this.chkSchemaShowDiff.Location = new System.Drawing.Point(582, 271);
             this.chkSchemaShowDiff.Name = "chkSchemaShowDiff";
             this.chkSchemaShowDiff.Size = new System.Drawing.Size(96, 17);
             this.chkSchemaShowDiff.TabIndex = 56;
@@ -1034,7 +746,7 @@
             this.chkSchemaShowIdentical.AutoSize = true;
             this.chkSchemaShowIdentical.Checked = true;
             this.chkSchemaShowIdentical.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSchemaShowIdentical.Location = new System.Drawing.Point(475, 271);
+            this.chkSchemaShowIdentical.Location = new System.Drawing.Point(468, 271);
             this.chkSchemaShowIdentical.Name = "chkSchemaShowIdentical";
             this.chkSchemaShowIdentical.Size = new System.Drawing.Size(96, 17);
             this.chkSchemaShowIdentical.TabIndex = 55;
@@ -1059,7 +771,7 @@
             this.lvSchemaTables.Location = new System.Drawing.Point(8, 3);
             this.lvSchemaTables.MultiSelect = false;
             this.lvSchemaTables.Name = "lvSchemaTables";
-            this.lvSchemaTables.Size = new System.Drawing.Size(686, 245);
+            this.lvSchemaTables.Size = new System.Drawing.Size(679, 245);
             this.lvSchemaTables.TabIndex = 54;
             this.lvSchemaTables.UseCompatibleStateImageBehavior = false;
             this.lvSchemaTables.View = System.Windows.Forms.View.Details;
@@ -1097,10 +809,15 @@
             // 
             // tabData
             // 
+            this.tabData.Controls.Add(this.label4);
+            this.tabData.Controls.Add(this.lblDataTableName);
+            this.tabData.Controls.Add(this.chkDataShowDiff);
+            this.tabData.Controls.Add(this.chkDataShowIdentical);
+            this.tabData.Controls.Add(this.lvDataRows);
             this.tabData.Controls.Add(this.lvDataTables);
             this.tabData.Location = new System.Drawing.Point(4, 22);
             this.tabData.Name = "tabData";
-            this.tabData.Size = new System.Drawing.Size(702, 602);
+            this.tabData.Size = new System.Drawing.Size(695, 592);
             this.tabData.TabIndex = 4;
             this.tabData.Text = "Data";
             this.tabData.UseVisualStyleBackColor = true;
@@ -1122,7 +839,7 @@
             this.lvDataTables.Location = new System.Drawing.Point(8, 3);
             this.lvDataTables.MultiSelect = false;
             this.lvDataTables.Name = "lvDataTables";
-            this.lvDataTables.Size = new System.Drawing.Size(677, 245);
+            this.lvDataTables.Size = new System.Drawing.Size(679, 245);
             this.lvDataTables.TabIndex = 55;
             this.lvDataTables.UseCompatibleStateImageBehavior = false;
             this.lvDataTables.View = System.Windows.Forms.View.Details;
@@ -1165,7 +882,7 @@
             // btnCompare
             // 
             this.btnCompare.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCompare.Location = new System.Drawing.Point(577, 9);
+            this.btnCompare.Location = new System.Drawing.Point(570, 9);
             this.btnCompare.Name = "btnCompare";
             this.btnCompare.Size = new System.Drawing.Size(129, 23);
             this.btnCompare.TabIndex = 60;
@@ -1188,7 +905,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDatabaseB.Location = new System.Drawing.Point(81, 38);
             this.txtDatabaseB.Name = "txtDatabaseB";
-            this.txtDatabaseB.Size = new System.Drawing.Size(409, 20);
+            this.txtDatabaseB.Size = new System.Drawing.Size(402, 20);
             this.txtDatabaseB.TabIndex = 57;
             this.txtDatabaseB.Text = "C:\\Users\\jimkr\\Desktop\\Configuration-VTA-S54-PSA.sdf";
             // 
@@ -1198,14 +915,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDatabaseA.Location = new System.Drawing.Point(81, 12);
             this.txtDatabaseA.Name = "txtDatabaseA";
-            this.txtDatabaseA.Size = new System.Drawing.Size(409, 20);
+            this.txtDatabaseA.Size = new System.Drawing.Size(402, 20);
             this.txtDatabaseA.TabIndex = 55;
             this.txtDatabaseA.Text = "C:\\Users\\jimkr\\Desktop\\Configuration-VTA-S54.sdf";
             // 
             // btnBrowseB
             // 
             this.btnBrowseB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseB.Location = new System.Drawing.Point(496, 36);
+            this.btnBrowseB.Location = new System.Drawing.Point(489, 36);
             this.btnBrowseB.Name = "btnBrowseB";
             this.btnBrowseB.Size = new System.Drawing.Size(75, 23);
             this.btnBrowseB.TabIndex = 58;
@@ -1225,7 +942,7 @@
             // btnBrowseA
             // 
             this.btnBrowseA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseA.Location = new System.Drawing.Point(496, 11);
+            this.btnBrowseA.Location = new System.Drawing.Point(489, 11);
             this.btnBrowseA.Name = "btnBrowseA";
             this.btnBrowseA.Size = new System.Drawing.Size(75, 23);
             this.btnBrowseA.TabIndex = 54;
@@ -1254,11 +971,108 @@
             this.label18.TabIndex = 59;
             this.label18.Text = "TableName: ";
             // 
+            // lvDataRows
+            // 
+            this.lvDataRows.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvDataRows.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6});
+            this.lvDataRows.FullRowSelect = true;
+            this.lvDataRows.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvDataRows.HideSelection = false;
+            this.lvDataRows.Location = new System.Drawing.Point(8, 294);
+            this.lvDataRows.MultiSelect = false;
+            this.lvDataRows.Name = "lvDataRows";
+            this.lvDataRows.Size = new System.Drawing.Size(679, 290);
+            this.lvDataRows.TabIndex = 56;
+            this.lvDataRows.UseCompatibleStateImageBehavior = false;
+            this.lvDataRows.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Table Name";
+            this.columnHeader1.Width = 150;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Found in Db A";
+            this.columnHeader2.Width = 90;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Found in Db B";
+            this.columnHeader3.Width = 90;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "RowCount A";
+            this.columnHeader4.Width = 90;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "RowCount B";
+            this.columnHeader5.Width = 80;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Are Equal";
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(5, 270);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 17);
+            this.label4.TabIndex = 63;
+            this.label4.Text = "TableName: ";
+            // 
+            // lblDataTableName
+            // 
+            this.lblDataTableName.AutoSize = true;
+            this.lblDataTableName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDataTableName.Location = new System.Drawing.Point(88, 270);
+            this.lblDataTableName.Name = "lblDataTableName";
+            this.lblDataTableName.Size = new System.Drawing.Size(141, 17);
+            this.lblDataTableName.TabIndex = 62;
+            this.lblDataTableName.Text = "lblDataTableName";
+            // 
+            // chkDataShowDiff
+            // 
+            this.chkDataShowDiff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkDataShowDiff.AutoSize = true;
+            this.chkDataShowDiff.Checked = true;
+            this.chkDataShowDiff.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDataShowDiff.Location = new System.Drawing.Point(582, 271);
+            this.chkDataShowDiff.Name = "chkDataShowDiff";
+            this.chkDataShowDiff.Size = new System.Drawing.Size(96, 17);
+            this.chkDataShowDiff.TabIndex = 61;
+            this.chkDataShowDiff.Text = "Show Different";
+            this.chkDataShowDiff.UseVisualStyleBackColor = true;
+            // 
+            // chkDataShowIdentical
+            // 
+            this.chkDataShowIdentical.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkDataShowIdentical.AutoSize = true;
+            this.chkDataShowIdentical.Checked = true;
+            this.chkDataShowIdentical.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDataShowIdentical.Location = new System.Drawing.Point(468, 271);
+            this.chkDataShowIdentical.Name = "chkDataShowIdentical";
+            this.chkDataShowIdentical.Size = new System.Drawing.Size(96, 17);
+            this.chkDataShowIdentical.TabIndex = 60;
+            this.chkDataShowIdentical.Text = "Show Identical";
+            this.chkDataShowIdentical.UseVisualStyleBackColor = true;
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(710, 693);
+            this.ClientSize = new System.Drawing.Size(703, 683);
             this.Controls.Add(this.chkCompareData);
             this.Controls.Add(this.btnCompare);
             this.Controls.Add(this.label5);
@@ -1281,20 +1095,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.buslinkadapterhelp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.otaserverhelp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OtaLocalPicHlp)).EndInit();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel1.PerformLayout();
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
             this.Tab.ResumeLayout(false);
             this.tabSchema.ResumeLayout(false);
             this.tabSchema.PerformLayout();
@@ -1302,6 +1102,7 @@
             this.tpSchemaColumns.ResumeLayout(false);
             this.tpSchemaIndexes.ResumeLayout(false);
             this.tabData.ResumeLayout(false);
+            this.tabData.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1312,30 +1113,6 @@
         private System.Windows.Forms.OpenFileDialog openScheduleSdf;
         private System.Windows.Forms.OpenFileDialog openConfigSdf;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Label OldTxtBox;
-        private System.Windows.Forms.TextBox InOldTxtBox;
-        private System.Windows.Forms.Label NewTxtBox;
-        private System.Windows.Forms.TextBox InNewTxtBox;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button OpenWinMerge;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox NewConfigTxt;
-        private System.Windows.Forms.TextBox OldConfigTxt;
-        private System.Windows.Forms.Button CheckChangesButton;
-        private System.Windows.Forms.Button NewConfigBrowse;
-        private System.Windows.Forms.Label NewConfigLabel;
-        private System.Windows.Forms.Button OldConfigBrowse;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TabControl Tab;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox EditConfigTxt;
@@ -1423,6 +1200,17 @@
         private System.Windows.Forms.ColumnHeader chIndexAttributesB;
         private System.Windows.Forms.ColumnHeader chSchemaIdxCount;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblDataTableName;
+        private System.Windows.Forms.CheckBox chkDataShowDiff;
+        private System.Windows.Forms.CheckBox chkDataShowIdentical;
+        private System.Windows.Forms.ListView lvDataRows;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
     }
 }
 
