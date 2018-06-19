@@ -131,6 +131,9 @@ namespace SqlCeComparer
     {
         public string TableName { get; set; }
         public string IndexName { get; set; }
+        /// <summary>
+        /// Starts at 1
+        /// </summary>
         public int OrdinalPosition { get; set; }
         public string ColumnName { get; set; }
         public string SortDirection { get; set; }

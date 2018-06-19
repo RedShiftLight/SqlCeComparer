@@ -54,7 +54,7 @@ namespace SqlCeComparer
             return 0;
         }
     }
-
+    
     public class IndexSchemaComparer : IEqualityComparer<IndexSchema>
     {
         public bool Equals(IndexSchema x, IndexSchema y)

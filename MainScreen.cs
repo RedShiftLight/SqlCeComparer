@@ -752,81 +752,62 @@ namespace SqlCeComparer
             tpSchemaColumns.Text = "Columns";
             if (foundDiff)
             {
-                tpSchemaColumns.Text += " *";
+                tpSchemaColumns.Text += " ***";
                 //PaintTab(tpSchemaColumns, Color.HotPink);
             }
         }
 
         private void DisplayIndexSchemas(TableSchema tsA, TableSchema tsB)
         {
-            List<string> indexNamesA = tsA.Indexes.Select(x => x.IndexName).ToList();
-            List<string> indexNamesB = tsB.Indexes.Select(x => x.IndexName).ToList();
-            List<string> indexNames = indexNamesA.Union(indexNamesB).OrderBy(x => x).ToList();
-
-            throw new Exception("This is not correct yet index name is not enough...need to include ordinal position too");
+            List<string> indexNames = tsA.Indexes.Select(x => x.IndexName).Union(tsB.Indexes.Select(x => x.IndexName)).OrderBy(x => x).ToList();
             bool foundDiff = false;
+
             foreach (var indexName in indexNames)
             {
-                IndexSchema schemaA = tsA.Indexes.FirstOrDefault(x => x.IndexName == indexName);
-                IndexSchema schemaB = tsB.Indexes.FirstOrDefault(x => x.IndexName == indexName);
-                bool areEqual = CompareUtil.IndexSchemaComparer.Equals(schemaA, schemaB);
+                //Match up the index parts by ordinal position
+                Dictionary<int, Tuple<IndexSchema, IndexSchema>> matches = CompareUtil.GetIndexSchemaMatches(indexName, tsA, tsB);
 
-                if ((chkSchemaShowIdentical.Checked && areEqual) || (chkSchemaShowDiff.Checked && !areEqual))
+                foreach (var match in matches)
                 {
-                    ListViewItem item = lvSchemaIndexes.Items.Add(indexName);
-
-                    var s1A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
-                    var s2A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
-                    var s3A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
-                    var diffSubItem = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, ""));
-                    var s1B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
-                    var s2B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
-                    var s3B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
-
-                    if (schemaA != null)
+                    bool areEqual = CompareUtil.IndexSchemaComparer.Equals(match.Value.Item1, match.Value.Item2);
+                    if ((chkSchemaShowIdentical.Checked && areEqual) || (chkSchemaShowDiff.Checked && !areEqual))
                     {
-                        s1A.Text = schemaA.OrdinalPosition.ToString();
-                        s2A.Text = schemaA.ColumnName;
-                        s3A.Text = schemaA.Attributes;
-                    }
+                        ListViewItem item = lvSchemaIndexes.Items.Add(indexName);
 
-                    if (schemaB != null)
-                    {
-                        s1B.Text = schemaB.OrdinalPosition.ToString();
-                        s2B.Text = schemaB.ColumnName;
-                        s3B.Text = schemaB.Attributes;
-                    }
+                        var s1A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                        var s2A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                        var s3A = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                        var diffSubItem = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, ""));
+                        var s1B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                        var s2B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
+                        var s3B = item.SubItems.Add(new ListViewItem.ListViewSubItem(item, "-"));
 
-                    if (!areEqual)
-                    {
-                        item.BackColor = Color.HotPink;
-                        foundDiff = true;
+                        if (match.Value.Item1 != null)
+                        {
+                            s1A.Text = match.Value.Item1.OrdinalPosition.ToString();
+                            s2A.Text = match.Value.Item1.ColumnName;
+                            s3A.Text = match.Value.Item1.Attributes;
+                        }
+
+                        if (match.Value.Item2 != null)
+                        {
+                            s1B.Text = match.Value.Item2.OrdinalPosition.ToString();
+                            s2B.Text = match.Value.Item2.ColumnName;
+                            s3B.Text = match.Value.Item2.Attributes;
+                        }
+
+                        if (!areEqual)
+                        {
+                            item.BackColor = Color.HotPink;
+                            foundDiff = true;
+                        }
                     }
                 }
             }
 
             tpSchemaIndexes.Text = "Indexes";
-            if (foundDiff)
-            {
-                tpSchemaIndexes.Text += " *";
-                //PaintTab(tpSchemaColumns, Color.HotPink);
-            }
+            if (foundDiff) tpSchemaIndexes.Text += " ***";
         }
-
-        /// <summary>
-        /// Not working yet
-        /// </summary>
-        private void PaintTab(TabPage tab, Color color)
-        {
-            Graphics g = tab.CreateGraphics();
-            g.FillRectangle(new SolidBrush(color), tab.Bounds);
-
-            Rectangle paddedBounds = tab.Bounds;
-            int yOffset = (tcSchemaResults.SelectedTab == tab) ? -2 : 1;
-            paddedBounds.Offset(1, yOffset);
-            TextRenderer.DrawText(g, tab.Text, tcSchemaResults.Font, paddedBounds, tab.ForeColor);
-        }
-
         #endregion
 
         #region Data tab
@@ -889,5 +870,10 @@ namespace SqlCeComparer
             //}
         }
         #endregion
+
+        private void MainScreen_Load(object sender, EventArgs e)
+        {
+            lblSchemaTableName.Text = string.Empty;
+        }
     }
 }

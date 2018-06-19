@@ -164,6 +164,30 @@ namespace SqlCeComparer
             return result;
         }
         #endregion
+        
+        #region Compare Indexes
+        /// <summary>
+        /// Key = Position Ordinal
+        /// Tuple.Item1 = IndexSchema from DbA
+        /// Tuple.Item2 = IndexSchema from DbB
+        /// </summary>
+        public static Dictionary<int, Tuple<IndexSchema, IndexSchema>> GetIndexSchemaMatches(string indexName, TableSchema tsA, TableSchema tsB)
+        {
+            Dictionary<int, Tuple<IndexSchema, IndexSchema>> result = new Dictionary<int, Tuple<IndexSchema, IndexSchema>>();
+            //This code assumes the ordinal values will start with 1 and will be consecutive.
+            List<IndexSchema> schemaListA = tsA.Indexes.Where(x => x.IndexName == indexName).ToList();
+            List<IndexSchema> schemaListB = tsB.Indexes.Where(x => x.IndexName == indexName).ToList();
+            int maxIndex = Math.Max(schemaListA.Count, schemaListB.Count) + 1;
+
+            for (int i = 1; i < maxIndex; i++)
+            {
+                IndexSchema schemaA = schemaListA.FirstOrDefault(x => x.OrdinalPosition == i);
+                IndexSchema schemaB = schemaListB.FirstOrDefault(x => x.OrdinalPosition == i);
+                result.Add(i, new Tuple<IndexSchema, IndexSchema>(schemaA, schemaB));
+            }
+            return result;
+        }
+        #endregion
         #endregion
     }
 

@@ -92,6 +92,29 @@
             this.label3 = new System.Windows.Forms.Label();
             this.Tab = new System.Windows.Forms.TabControl();
             this.tabSchema = new System.Windows.Forms.TabPage();
+            this.tcSchemaResults = new System.Windows.Forms.TabControl();
+            this.tpSchemaColumns = new System.Windows.Forms.TabPage();
+            this.lvSchemaColumns = new System.Windows.Forms.ListView();
+            this.chColName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chColPosA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chDataTypeA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chLengthA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chColNullA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chColGap = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chColPosB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chDataTypeB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chLengthB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chColNullB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tpSchemaIndexes = new System.Windows.Forms.TabPage();
+            this.lvSchemaIndexes = new System.Windows.Forms.ListView();
+            this.chIndexName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chIndexPositionA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chIndexColumnNameA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chIndexAttributesA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chIndexGap = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chIndexPositionB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chIndexColumnNameB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chIndexAttributesB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lblSchemaTableName = new System.Windows.Forms.Label();
             this.chkSchemaShowDiff = new System.Windows.Forms.CheckBox();
             this.chkSchemaShowIdentical = new System.Windows.Forms.CheckBox();
@@ -101,6 +124,7 @@
             this.chSchemaDbB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chSchemaEqual = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chSchemaColCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chSchemaIdxCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabData = new System.Windows.Forms.TabPage();
             this.lvDataTables = new System.Windows.Forms.ListView();
             this.chDataTableName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -118,30 +142,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.btnBrowseA = new System.Windows.Forms.Button();
             this.chkCompareData = new System.Windows.Forms.CheckBox();
-            this.tcSchemaResults = new System.Windows.Forms.TabControl();
-            this.tpSchemaColumns = new System.Windows.Forms.TabPage();
-            this.tpSchemaIndexes = new System.Windows.Forms.TabPage();
-            this.lvSchemaIndexes = new System.Windows.Forms.ListView();
-            this.chIndexName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chIndexPositionA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chIndexColumnNameA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chIndexAttributesA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lvSchemaColumns = new System.Windows.Forms.ListView();
-            this.chColName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chColPosA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chDataTypeA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chLengthA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chColNullA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chColGap = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chColPosB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chDataTypeB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chLengthB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chColNullB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chIndexGap = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chIndexPositionB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chIndexColumnNameB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chIndexAttributesB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chSchemaIdxCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label18 = new System.Windows.Forms.Label();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dwelltimehelp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.remotevalhelp)).BeginInit();
@@ -162,10 +163,10 @@
             this.splitContainer2.SuspendLayout();
             this.Tab.SuspendLayout();
             this.tabSchema.SuspendLayout();
-            this.tabData.SuspendLayout();
             this.tcSchemaResults.SuspendLayout();
             this.tpSchemaColumns.SuspendLayout();
             this.tpSchemaIndexes.SuspendLayout();
+            this.tabData.SuspendLayout();
             this.SuspendLayout();
             // 
             // openScheduleSdf
@@ -819,6 +820,7 @@
             // 
             // tabSchema
             // 
+            this.tabSchema.Controls.Add(this.label18);
             this.tabSchema.Controls.Add(this.tcSchemaResults);
             this.tabSchema.Controls.Add(this.lblSchemaTableName);
             this.tabSchema.Controls.Add(this.chkSchemaShowDiff);
@@ -831,11 +833,182 @@
             this.tabSchema.Text = "Schema";
             this.tabSchema.UseVisualStyleBackColor = true;
             // 
+            // tcSchemaResults
+            // 
+            this.tcSchemaResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tcSchemaResults.Controls.Add(this.tpSchemaColumns);
+            this.tcSchemaResults.Controls.Add(this.tpSchemaIndexes);
+            this.tcSchemaResults.Location = new System.Drawing.Point(8, 294);
+            this.tcSchemaResults.Name = "tcSchemaResults";
+            this.tcSchemaResults.SelectedIndex = 0;
+            this.tcSchemaResults.Size = new System.Drawing.Size(686, 305);
+            this.tcSchemaResults.TabIndex = 58;
+            // 
+            // tpSchemaColumns
+            // 
+            this.tpSchemaColumns.Controls.Add(this.lvSchemaColumns);
+            this.tpSchemaColumns.Location = new System.Drawing.Point(4, 22);
+            this.tpSchemaColumns.Name = "tpSchemaColumns";
+            this.tpSchemaColumns.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSchemaColumns.Size = new System.Drawing.Size(678, 279);
+            this.tpSchemaColumns.TabIndex = 0;
+            this.tpSchemaColumns.Text = "Columns";
+            this.tpSchemaColumns.UseVisualStyleBackColor = true;
+            // 
+            // lvSchemaColumns
+            // 
+            this.lvSchemaColumns.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chColName,
+            this.chColPosA,
+            this.chDataTypeA,
+            this.chLengthA,
+            this.chColNullA,
+            this.chColGap,
+            this.chColPosB,
+            this.chDataTypeB,
+            this.chLengthB,
+            this.chColNullB});
+            this.lvSchemaColumns.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvSchemaColumns.FullRowSelect = true;
+            this.lvSchemaColumns.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvSchemaColumns.HideSelection = false;
+            this.lvSchemaColumns.Location = new System.Drawing.Point(3, 3);
+            this.lvSchemaColumns.MultiSelect = false;
+            this.lvSchemaColumns.Name = "lvSchemaColumns";
+            this.lvSchemaColumns.Size = new System.Drawing.Size(672, 273);
+            this.lvSchemaColumns.TabIndex = 56;
+            this.lvSchemaColumns.UseCompatibleStateImageBehavior = false;
+            this.lvSchemaColumns.View = System.Windows.Forms.View.Details;
+            // 
+            // chColName
+            // 
+            this.chColName.Text = "Column Name";
+            this.chColName.Width = 180;
+            // 
+            // chColPosA
+            // 
+            this.chColPosA.Text = "Position";
+            this.chColPosA.Width = 50;
+            // 
+            // chDataTypeA
+            // 
+            this.chDataTypeA.Text = "DataType";
+            this.chDataTypeA.Width = 70;
+            // 
+            // chLengthA
+            // 
+            this.chLengthA.Text = "Length";
+            this.chLengthA.Width = 50;
+            // 
+            // chColNullA
+            // 
+            this.chColNullA.Text = "Nullable";
+            this.chColNullA.Width = 50;
+            // 
+            // chColGap
+            // 
+            this.chColGap.Text = "";
+            this.chColGap.Width = 20;
+            // 
+            // chColPosB
+            // 
+            this.chColPosB.Text = "Position";
+            this.chColPosB.Width = 50;
+            // 
+            // chDataTypeB
+            // 
+            this.chDataTypeB.Text = "DataType";
+            this.chDataTypeB.Width = 70;
+            // 
+            // chLengthB
+            // 
+            this.chLengthB.Text = "Length";
+            this.chLengthB.Width = 50;
+            // 
+            // chColNullB
+            // 
+            this.chColNullB.Text = "Nullable";
+            this.chColNullB.Width = 50;
+            // 
+            // tpSchemaIndexes
+            // 
+            this.tpSchemaIndexes.Controls.Add(this.lvSchemaIndexes);
+            this.tpSchemaIndexes.Location = new System.Drawing.Point(4, 22);
+            this.tpSchemaIndexes.Name = "tpSchemaIndexes";
+            this.tpSchemaIndexes.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSchemaIndexes.Size = new System.Drawing.Size(678, 279);
+            this.tpSchemaIndexes.TabIndex = 1;
+            this.tpSchemaIndexes.Text = "Indexes";
+            this.tpSchemaIndexes.UseVisualStyleBackColor = true;
+            // 
+            // lvSchemaIndexes
+            // 
+            this.lvSchemaIndexes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chIndexName,
+            this.chIndexPositionA,
+            this.chIndexColumnNameA,
+            this.chIndexAttributesA,
+            this.chIndexGap,
+            this.chIndexPositionB,
+            this.chIndexColumnNameB,
+            this.chIndexAttributesB});
+            this.lvSchemaIndexes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvSchemaIndexes.FullRowSelect = true;
+            this.lvSchemaIndexes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvSchemaIndexes.HideSelection = false;
+            this.lvSchemaIndexes.Location = new System.Drawing.Point(3, 3);
+            this.lvSchemaIndexes.MultiSelect = false;
+            this.lvSchemaIndexes.Name = "lvSchemaIndexes";
+            this.lvSchemaIndexes.Size = new System.Drawing.Size(672, 273);
+            this.lvSchemaIndexes.TabIndex = 0;
+            this.lvSchemaIndexes.UseCompatibleStateImageBehavior = false;
+            this.lvSchemaIndexes.View = System.Windows.Forms.View.Details;
+            // 
+            // chIndexName
+            // 
+            this.chIndexName.Text = "Index Name";
+            this.chIndexName.Width = 200;
+            // 
+            // chIndexPositionA
+            // 
+            this.chIndexPositionA.Text = "Position";
+            this.chIndexPositionA.Width = 50;
+            // 
+            // chIndexColumnNameA
+            // 
+            this.chIndexColumnNameA.Text = "Column Name";
+            this.chIndexColumnNameA.Width = 100;
+            // 
+            // chIndexAttributesA
+            // 
+            this.chIndexAttributesA.Text = "Attributes";
+            // 
+            // chIndexGap
+            // 
+            this.chIndexGap.Text = " ";
+            this.chIndexGap.Width = 20;
+            // 
+            // chIndexPositionB
+            // 
+            this.chIndexPositionB.Text = "Position";
+            this.chIndexPositionB.Width = 50;
+            // 
+            // chIndexColumnNameB
+            // 
+            this.chIndexColumnNameB.Text = "Column Name";
+            this.chIndexColumnNameB.Width = 100;
+            // 
+            // chIndexAttributesB
+            // 
+            this.chIndexAttributesB.Text = "Attributes";
+            // 
             // lblSchemaTableName
             // 
             this.lblSchemaTableName.AutoSize = true;
             this.lblSchemaTableName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSchemaTableName.Location = new System.Drawing.Point(11, 270);
+            this.lblSchemaTableName.Location = new System.Drawing.Point(88, 270);
             this.lblSchemaTableName.Name = "lblSchemaTableName";
             this.lblSchemaTableName.Size = new System.Drawing.Size(164, 17);
             this.lblSchemaTableName.TabIndex = 57;
@@ -916,6 +1089,11 @@
             // 
             this.chSchemaColCount.Text = "Column Count";
             this.chSchemaColCount.Width = 80;
+            // 
+            // chSchemaIdxCount
+            // 
+            this.chSchemaIdxCount.Text = "Index Count";
+            this.chSchemaIdxCount.Width = 80;
             // 
             // tabData
             // 
@@ -1067,181 +1245,14 @@
             this.chkCompareData.Text = "Compare Data Too";
             this.chkCompareData.UseVisualStyleBackColor = true;
             // 
-            // tcSchemaResults
+            // label18
             // 
-            this.tcSchemaResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tcSchemaResults.Controls.Add(this.tpSchemaColumns);
-            this.tcSchemaResults.Controls.Add(this.tpSchemaIndexes);
-            this.tcSchemaResults.Location = new System.Drawing.Point(8, 294);
-            this.tcSchemaResults.Name = "tcSchemaResults";
-            this.tcSchemaResults.SelectedIndex = 0;
-            this.tcSchemaResults.Size = new System.Drawing.Size(686, 305);
-            this.tcSchemaResults.TabIndex = 58;
-            // 
-            // tpSchemaColumns
-            // 
-            this.tpSchemaColumns.Controls.Add(this.lvSchemaColumns);
-            this.tpSchemaColumns.Location = new System.Drawing.Point(4, 22);
-            this.tpSchemaColumns.Name = "tpSchemaColumns";
-            this.tpSchemaColumns.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSchemaColumns.Size = new System.Drawing.Size(678, 279);
-            this.tpSchemaColumns.TabIndex = 0;
-            this.tpSchemaColumns.Text = "Columns";
-            this.tpSchemaColumns.UseVisualStyleBackColor = true;
-            // 
-            // tpSchemaIndexes
-            // 
-            this.tpSchemaIndexes.Controls.Add(this.lvSchemaIndexes);
-            this.tpSchemaIndexes.Location = new System.Drawing.Point(4, 22);
-            this.tpSchemaIndexes.Name = "tpSchemaIndexes";
-            this.tpSchemaIndexes.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSchemaIndexes.Size = new System.Drawing.Size(678, 279);
-            this.tpSchemaIndexes.TabIndex = 1;
-            this.tpSchemaIndexes.Text = "Indexes";
-            this.tpSchemaIndexes.UseVisualStyleBackColor = true;
-            // 
-            // lvSchemaIndexes
-            // 
-            this.lvSchemaIndexes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chIndexName,
-            this.chIndexPositionA,
-            this.chIndexColumnNameA,
-            this.chIndexAttributesA,
-            this.chIndexGap,
-            this.chIndexPositionB,
-            this.chIndexColumnNameB,
-            this.chIndexAttributesB});
-            this.lvSchemaIndexes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvSchemaIndexes.FullRowSelect = true;
-            this.lvSchemaIndexes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvSchemaIndexes.HideSelection = false;
-            this.lvSchemaIndexes.Location = new System.Drawing.Point(3, 3);
-            this.lvSchemaIndexes.MultiSelect = false;
-            this.lvSchemaIndexes.Name = "lvSchemaIndexes";
-            this.lvSchemaIndexes.Size = new System.Drawing.Size(672, 273);
-            this.lvSchemaIndexes.TabIndex = 0;
-            this.lvSchemaIndexes.UseCompatibleStateImageBehavior = false;
-            this.lvSchemaIndexes.View = System.Windows.Forms.View.Details;
-            // 
-            // chIndexName
-            // 
-            this.chIndexName.Text = "Index Name";
-            this.chIndexName.Width = 200;
-            // 
-            // chIndexPositionA
-            // 
-            this.chIndexPositionA.Text = "Position";
-            this.chIndexPositionA.Width = 50;
-            // 
-            // chIndexColumnNameA
-            // 
-            this.chIndexColumnNameA.Text = "Column Name";
-            this.chIndexColumnNameA.Width = 100;
-            // 
-            // chIndexAttributesA
-            // 
-            this.chIndexAttributesA.Text = "Attributes";
-            // 
-            // lvSchemaColumns
-            // 
-            this.lvSchemaColumns.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chColName,
-            this.chColPosA,
-            this.chDataTypeA,
-            this.chLengthA,
-            this.chColNullA,
-            this.chColGap,
-            this.chColPosB,
-            this.chDataTypeB,
-            this.chLengthB,
-            this.chColNullB});
-            this.lvSchemaColumns.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvSchemaColumns.FullRowSelect = true;
-            this.lvSchemaColumns.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvSchemaColumns.HideSelection = false;
-            this.lvSchemaColumns.Location = new System.Drawing.Point(3, 3);
-            this.lvSchemaColumns.MultiSelect = false;
-            this.lvSchemaColumns.Name = "lvSchemaColumns";
-            this.lvSchemaColumns.Size = new System.Drawing.Size(672, 273);
-            this.lvSchemaColumns.TabIndex = 56;
-            this.lvSchemaColumns.UseCompatibleStateImageBehavior = false;
-            this.lvSchemaColumns.View = System.Windows.Forms.View.Details;
-            // 
-            // chColName
-            // 
-            this.chColName.Text = "Column Name";
-            this.chColName.Width = 180;
-            // 
-            // chColPosA
-            // 
-            this.chColPosA.Text = "Position";
-            this.chColPosA.Width = 50;
-            // 
-            // chDataTypeA
-            // 
-            this.chDataTypeA.Text = "DataType";
-            this.chDataTypeA.Width = 70;
-            // 
-            // chLengthA
-            // 
-            this.chLengthA.Text = "Length";
-            this.chLengthA.Width = 50;
-            // 
-            // chColNullA
-            // 
-            this.chColNullA.Text = "Nullable";
-            this.chColNullA.Width = 50;
-            // 
-            // chColGap
-            // 
-            this.chColGap.Text = "";
-            this.chColGap.Width = 20;
-            // 
-            // chColPosB
-            // 
-            this.chColPosB.Text = "Position";
-            this.chColPosB.Width = 50;
-            // 
-            // chDataTypeB
-            // 
-            this.chDataTypeB.Text = "DataType";
-            this.chDataTypeB.Width = 70;
-            // 
-            // chLengthB
-            // 
-            this.chLengthB.Text = "Length";
-            this.chLengthB.Width = 50;
-            // 
-            // chColNullB
-            // 
-            this.chColNullB.Text = "Nullable";
-            this.chColNullB.Width = 50;
-            // 
-            // chIndexGap
-            // 
-            this.chIndexGap.Text = " ";
-            this.chIndexGap.Width = 20;
-            // 
-            // chIndexPositionB
-            // 
-            this.chIndexPositionB.Text = "Position";
-            this.chIndexPositionB.Width = 50;
-            // 
-            // chIndexColumnNameB
-            // 
-            this.chIndexColumnNameB.Text = "Column Name";
-            this.chIndexColumnNameB.Width = 100;
-            // 
-            // chIndexAttributesB
-            // 
-            this.chIndexAttributesB.Text = "Attributes";
-            // 
-            // chSchemaIdxCount
-            // 
-            this.chSchemaIdxCount.Text = "Index Count";
-            this.chSchemaIdxCount.Width = 80;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(5, 270);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(87, 17);
+            this.label18.TabIndex = 59;
+            this.label18.Text = "TableName: ";
             // 
             // MainScreen
             // 
@@ -1259,6 +1270,7 @@
             this.Controls.Add(this.Tab);
             this.Name = "MainScreen";
             this.Text = "CleverWare Configuration Diff Tool";
+            this.Load += new System.EventHandler(this.MainScreen_Load);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dwelltimehelp)).EndInit();
@@ -1286,10 +1298,10 @@
             this.Tab.ResumeLayout(false);
             this.tabSchema.ResumeLayout(false);
             this.tabSchema.PerformLayout();
-            this.tabData.ResumeLayout(false);
             this.tcSchemaResults.ResumeLayout(false);
             this.tpSchemaColumns.ResumeLayout(false);
             this.tpSchemaIndexes.ResumeLayout(false);
+            this.tabData.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1410,6 +1422,7 @@
         private System.Windows.Forms.ColumnHeader chIndexColumnNameB;
         private System.Windows.Forms.ColumnHeader chIndexAttributesB;
         private System.Windows.Forms.ColumnHeader chSchemaIdxCount;
+        private System.Windows.Forms.Label label18;
     }
 }
 
