@@ -163,12 +163,14 @@ namespace SqlCeComparer
                     {
                         SqlCeCommand cmd = conn.CreateCommand();
                         cmd.CommandText = $"SELECT * FROM {tableName}";
+
+                        DataTable dt = result.Tables.Add(tableName);
+
+                        using (SqlCeDataAdapter da = new SqlCeDataAdapter(cmd))
+                            da.FillSchema(dt, SchemaType.Source);
+
                         using (var dr = cmd.ExecuteReader())
-                        {
-                            DataTable dt = new DataTable(tableName);
-                            result.Tables.Add(dt);
                             dt.Load(dr);
-                        }
                     }
                     catch (Exception ex)
                     {
@@ -188,13 +190,18 @@ namespace SqlCeComparer
 
         /*
             INFORMATION_SCHEMA views
+            .TABLES                    Tables accessible to the current user in the current database.
             .COLUMNS                   Columns accessed to the current user in the current database.
             .INDEXES                   Indexes in the current database.
+            .TABLE_CONSTRAINTS         Table constraints in the current database.
             .KEY_COLUMN_USAGE          Keys in the current database.
             .PROVIDER_TYPES            Data types supported in SQL Server Compact.
-            .TABLES                    Tables accessible to the current user in the current database.
-            .TABLE_CONSTRAINTS         Table constraints in the current database.
             .REFERENTIAL_CONSTRAINTS   Foreign constraint in the current database
+
+
+
+        select * FROM information_schema.TABLE_CONSTRAINTS WHERE constraint_type = 'primary key' and table_name = 'jimtest'
+        select * FROM information_schema.KEY_COLUMN_USAGE WHERE constraint_name = 'pk_jimtest' --and table_name = 'jimtest'
          */
     }
 }

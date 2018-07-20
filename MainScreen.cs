@@ -569,13 +569,72 @@ namespace SqlCeComparer
             if (lvDataTables.SelectedItems.Count > 0)
             {
                 var match = (Tuple<string, DataTable, DataTable, bool>)lvDataTables.SelectedItems[0].Tag;
-                lblDataTableName.Text = match.Item1;
-
+                string tableName = match.Item1;
                 DataTable dtA = match.Item2;
                 DataTable dtB = match.Item3;
+                bool isEqual = match.Item4;
+
+                lblDataTableName.Text = tableName;
+
+                //Get the PK for the tables
+                List<string> pkColumnsA = dtA.PrimaryKey.Select(x => x.ColumnName).ToList();
+                List<string> pkColumnsB = dtB.PrimaryKey.Select(x => x.ColumnName).ToList();
+                bool pkAreEqual = pkColumnsA.Except(pkColumnsB).Count() == 0 && pkColumnsB.Except(pkColumnsA).Count() == 0;
+                lvDataRows.Items.Clear();
+                if (!pkAreEqual || pkColumnsA.Count == 0)
+                {
+                    ListViewItem item = lvDataRows.Items.Add("Primary keys don't match. Can't display values.");
+                    return;
+                }
+
+                //Sort the data by the primary keys
+                dtA.DefaultView.ApplyDefaultSort = true;
+                dtB.DefaultView.ApplyDefaultSort = true;
+
+                //********************Can't make a datarelation between two different data sets!!!!!********************
+                //DataSet ds = new DataSet();
+                //ds.Tables.Add(dtA);
+                //ds.Tables.Add(dtB);
+                ////Create DataRelations between the two DataTables using the columns of the PK.
+                //DataRelation drA = new DataRelation($"{tableName}_RelationA", dtA.PrimaryKey, dtB.PrimaryKey);
+                //DataRelation drB = new DataRelation($"{tableName}_RelationA", dtA.PrimaryKey, dtB.PrimaryKey);
+                //******************************************************************************************************
+
+                /*
+
+                //Loop through table A and use the relateion to get data from table B
+                //Compare the two DataRows different, show the rows
+                //Do again but reverse the data relation...will this take too long?
+
+
+                foreach (DataRow dr in dtA.Rows)
+                {
+                    DataRow joinedRow = dr.GetParentRow("JoinRelation");
+
+
+                    // Just add all the columns' data in "dr" to the New table.
+                    for (int i = 0; i < ds.Tables["Table1"].Columns.Count; i++)
+                    {
+                        current[i] = dr[i];
+                    }
+                    // Add the column that is not present in the child, which is present in the parent.
+                    current["Dname"] = parent["Dname"];
+                    jt.Rows.Add(current);
+                }
+                dataGridView1.DataSource = ds.Tables["Joinedtable"];
+                */
+
+
+
+
 
                 DisplayDataRows(dtA, dtB);
             }
+        }
+
+        private List<string> GetPKColumnList(string tableName)
+        {
+            throw new NotImplementedException();
         }
 
         private void DisplayDataRows(DataTable dtA, DataTable dtB)
